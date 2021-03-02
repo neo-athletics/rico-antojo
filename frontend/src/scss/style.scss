@@ -1,0 +1,141 @@
+@import "../../scss/fontawesome.scss";
+@import "../../scss/solid.scss";
+
+// .itemList li,
+// .itemList div {
+//   position: relative;
+// }
+// input[type="radio"] {
+//   height: 20px;
+//   width: 20px;
+//   margin: 5px;
+//   position: absolute;
+//   appearance: none;
+// }
+// input[type="radio"]::before {
+//   content: "";
+//   display: inline-block;
+//   height: 100%;
+//   width: 100%;
+//   background-color: white;
+//   border: 1px solid rgb(0, 183, 255);
+//   border-radius: 50%;
+// }
+// input[type="radio"]::after {
+//   content: "";
+//   position: absolute;
+//   top: 4px;
+//   left: 4px;
+//   display: inline-block;
+//   height: 60%;
+//   width: 60%;
+//   background-color: rgb(118, 195, 231);
+//   border-radius: 50%;
+//   opacity: 0;
+// }
+// input[type="radio"]:checked::after {
+//   opacity: 1;
+// }
+// input[type="checkbox"] {
+//   @extend %fa-icon;
+//   @extend .fas;
+//   position: absolute;
+//   appearance: none;
+//   width: 20px;
+//   height: 20px;
+//   border: 1px solid rgb(0, 183, 255);
+// }
+// input[type="checkbox"]::before {
+//   content: "";
+//   width: 100%;
+//   height: 100%;
+//   display: inline-block;
+//   background-color: white;
+// }
+// input[type="checkbox"]::after {
+//   content: fa-content($fa-var-check);
+//   position: absolute;
+//   top: 2px;
+//   left: 2px;
+//   transform: scale(0.7);
+//   color: rgb(118, 195, 231);
+//   opacity: 0;
+// }
+// input[type="checkbox"]:checked::after {
+//   opacity: 1;
+// }
+.itemList li {
+  display: inline-block;
+  margin: 10px;
+}
+.itemList {
+  padding: 0;
+}
+.select-item-form {
+  margin-right: 10px;
+}
+.submit-item-form {
+  margin-right: 20px;
+}
+.itemLine:before {
+  content: "";
+  display: block;
+  height: 2px;
+  width: 100%;
+  background-color: gray;
+}
+.itemContainer {
+  height: 100px;
+}
+.removeItem {
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  margin-left: 10px;
+}
+.removeItem:after {
+  @extend %fa-icon;
+  @extend .fas;
+  content: fa-content($fa-var-trash);
+}
+.cart {
+  position: relative;
+  .itemCount {
+    display: inline-block;
+    position: relative;
+    top: -4px;
+    right: -2px;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background-color: rgb(59, 14, 165);
+    text-align: center;
+    span {
+      position: relative;
+      bottom: 3px;
+      color: white;
+      font-size: 12px;
+    }
+  }
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.sideCart {
+  width: 350px;
+}
+.itemTotalPrice {
+  margin-left: auto;
+}
+.itemQty {
+  margin-left: 10px;
+}
+.itemSideCart {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 6px;
+  box-shadow: 0px 0px 3px 0px black;
+  border-radius: 4px;
+}

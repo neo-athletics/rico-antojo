@@ -26,7 +26,6 @@ const cartReducer = (cart = [], action) => {
       return [...cart, action.payload];
     case "ITEM_UPDATED":
       return cart.map((item) => {
-        console.log(item.id === action.payload.id);
         if (item.id === action.payload.id) {
           return { ...item, quantity: action.payload.quantity };
         } else {

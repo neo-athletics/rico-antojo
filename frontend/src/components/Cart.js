@@ -6,13 +6,15 @@ import { Button, Container, Row, Col } from "react-bootstrap";
 // import SideCart from "./SideCart";
 
 const Cart = () => {
-  const { register, handleSubmit, watch } = useForm();
   const cart = useSelector((state) => state.cart);
+
+  const { register, handleSubmit, watch } = useForm();
 
   const quantity = watch("quantity");
   const dispatch = useDispatch();
 
   const handleChange = (e, item) => {
+    console.log(e.target.value);
     dispatch(updateItemQty(item, e.target.value));
   };
   const reducer = (accu, curr) => {
@@ -42,8 +44,9 @@ const Cart = () => {
                   </Col>
                   <Col>
                     <select
-                      name={"quantity"}
-                      ref={register}
+                      // name={"quantity"}
+                      // ref={register}
+                      {...register("quantity")}
                       value={item.quantity}
                       onChange={(e) => handleChange(e, item)}
                     >

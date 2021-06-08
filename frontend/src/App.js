@@ -9,6 +9,8 @@ import About from "./components/About";
 import Cart from "./components/Cart";
 import Home from "./components/Home";
 import Menu from "./components/Menu";
+import SignUp from "./components/SignUp";
+import LogIn from "./components/LogIn";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -29,6 +31,12 @@ function App() {
         </Route>
         <Route path="/cart">
           <Cart />
+        </Route>
+        <Route path="/signup">
+          <SignUp />
+        </Route>
+        <Route path="/login">
+          <LogIn />
         </Route>
       </Switch>
     </div>

@@ -1,15 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
+import axios from "axios";
 import { useForm } from "react-hook-form";
 
 const SignUp = () => {
-  const { register, handleSubmit, watch } = useForm();
+  const { register, handleSubmit } = useForm();
+
+  const getErrors = async () => {
+    const results = await axios.post({ method: "post", url: "/signup" });
+    return results;
+  };
+  useEffect(() => {
+    try {
+      const errors = getErrors();
+      console.log(errors);
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
   const onSubmit = (data) => {
     console.log(data);
   };
   return (
     <div>
       <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit} action="/signup" method="POST">
+      <form onSubmit={handleSubmit()} action="/signup" method="POST">
         <label htmlFor="username">username</label>
         <input
           type="text"

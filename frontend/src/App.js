@@ -11,36 +11,41 @@ import Home from "./components/Home";
 import Menu from "./components/Menu";
 import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
-
+import ProtectedRoute from "./components/ProtectedRoute";
 function App() {
-  const [showModal, setShowModal] = useState(false);
+    const [showModal, setShowModal] = useState(false);
 
-  return (
-    <div className="App">
-      <Modal showModal={showModal} setShowModal={setShowModal} />
-      <NavBar />
-      <Switch>
-        <Route path="/" exact>
-          <Home />
-        </Route>
-        <Route path="/menu">
+    return (
+        <div className="App">
+            <Modal showModal={showModal} setShowModal={setShowModal} />
+            <NavBar />
+            <Switch>
+                <Route path="/" exact>
+                    <Home />
+                </Route>
+                {/* <Route path="/menu">
           <Menu setShowModal={setShowModal} />
-        </Route>
-        <Route path="/about">
-          <About />
-        </Route>
-        <Route path="/cart">
-          <Cart />
-        </Route>
-        <Route path="/signup">
-          <SignUp />
-        </Route>
-        <Route path="/login">
-          <LogIn />
-        </Route>
-      </Switch>
-    </div>
-  );
+        </Route> */}
+                <ProtectedRoute
+                    path="/menu"
+                    component={Menu}
+                    setShowModal={setShowModal}
+                />
+                <Route path="/about">
+                    <About />
+                </Route>
+                <Route path="/cart">
+                    <Cart />
+                </Route>
+                <Route path="/signup">
+                    <SignUp />
+                </Route>
+                <Route path="/login">
+                    <LogIn />
+                </Route>
+            </Switch>
+        </div>
+    );
 }
 
 export default App;

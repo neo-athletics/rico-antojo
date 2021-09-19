@@ -109,10 +109,11 @@ passport.use(
 //   next();
 // });
 
-app.get("/", (req, res) => {
-    res.send("hello world");
+app.get("/", (req, res) => {});
+app.get("/logout", function (req, res) {
+    req.logout();
+    res.redirect("/");
 });
-
 app.get("/api/products", async (req, res) => {
     Item.find()
         .then((result) => res.send(result))
@@ -201,8 +202,9 @@ app.post(
                 console.log(req.body);
             } else {
                 req.logIn(user, (err) => {
+                    console.log(user);
                     if (err) throw err;
-                    res.redirect("/");
+                    res.send({ username: user.username });
                 });
             }
         })(req, res, next);

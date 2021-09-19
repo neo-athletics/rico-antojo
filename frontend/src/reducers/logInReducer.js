@@ -3,7 +3,7 @@ const logInReducer = (state = {}, action) => {
         case "LOGIN_REQUEST":
             return { ...state, status: "loading" };
         case "LOGIN_SUCCESS":
-            return { ...state, status: "success" };
+            return { ...state, status: "success", ...action.payload };
         case "LOGIN_FAILURE":
             return { ...state, status: "failed" };
         default:

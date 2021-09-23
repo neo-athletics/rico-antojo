@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import menuItems from "../menuItems";
-import logInReducer from "./logInReducer";
+import userStatus from "./userStatusReducer";
 const categoryReducer = () => {
     const categories = menuItems.map((item) => {
         return item.category;
@@ -46,5 +46,5 @@ export default combineReducers({
     items: itemsReducers,
     selectedItem: selectedItemReducer,
     cart: cartReducer,
-    logIn: logInReducer,
+    userStatus: userStatus,
 });

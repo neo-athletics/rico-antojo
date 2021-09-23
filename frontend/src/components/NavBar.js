@@ -2,13 +2,26 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { Redirect, useHistory } from "react-router";
 import SideCart from "./SideCart";
 import DropdownToggle from "react-bootstrap/esm/DropdownToggle";
 import { useDispatch } from "react-redux";
+import { logOutAction } from "../actions/logOutAction";
 
 const NavBar = () => {
-    const cartLength = useSelector((state) => state.cart.length);
+    const { cart, userStatus } = useSelector((state) => state);
+    const history = useHistory();
+    const cartLength = cart.length;
+
+    console.log(userStatus, "nav");
+
     const dispatch = useDispatch();
+
+    const handleLogOut = () => {
+        dispatch(logOutAction());
+        history.push("/");
+    };
+
     return (
         <Navbar bg="primary" variant="dark" className="mb-5">
             <Navbar.Brand href="#home">Rico Antojo</Navbar.Brand>
@@ -32,21 +45,19 @@ const NavBar = () => {
                         </Nav.Link>
                         <SideCart />
                     </div>
-                    <Nav.Link as={Link} to="/signup">
-                        Sign Up
-                    </Nav.Link>
-                    <Nav.Link as={Link} to="/login">
-                        Log In
-                    </Nav.Link>
-                    <Nav.Link
-                        as={Link}
-                        to="/logout"
-                        onClick={() => {
-                            dispatch({ type: "LOG_OUT" });
-                        }}
-                    >
-                        Log Out
-                    </Nav.Link>
+                    {!userStatus.status && (
+                        <>
+                            <Nav.Link as={Link} to="/signup">
+                                Sign Up
+                            </Nav.Link>
+                            <Nav.Link as={Link} to="/login">
+                                Log In
+                            </Nav.Link>
+                        </>
+                    )}
+                    {userStatus.status === "success" && (
+                        <Nav.Link onClick={handleLogOut}>Log Out</Nav.Link>
+                    )}
                 </Nav>
             </Container>
         </Navbar>

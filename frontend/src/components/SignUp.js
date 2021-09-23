@@ -1,10 +1,17 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
+import { Redirect } from "react-router";
 
 const SignUp = () => {
     const { register, handleSubmit } = useForm();
+    const userState = useSelector((state) => state.userStatus);
 
+    if (userState.status === "success") {
+        console.log("did work");
+        return <Redirect to={"/"} />;
+    }
     const getErrors = async () => {
         const results = await axios.post({ method: "post", url: "/signup" });
         return results;

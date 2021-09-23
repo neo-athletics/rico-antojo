@@ -110,9 +110,10 @@ passport.use(
 // });
 
 app.get("/", (req, res) => {});
-app.get("/logout", function (req, res) {
+app.get("/logout", (req, res) => {
     req.logout();
-    res.redirect("/");
+    console.log("redirecting");
+    // res.redirect("/");
 });
 app.get("/api/products", async (req, res) => {
     Item.find()

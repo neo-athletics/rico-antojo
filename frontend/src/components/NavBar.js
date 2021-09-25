@@ -8,17 +8,23 @@ import DropdownToggle from "react-bootstrap/esm/DropdownToggle";
 import { useDispatch } from "react-redux";
 import { logOutAction } from "../actions/logOutAction";
 
-const NavBar = () => {
+const NavBar = ({ setShow }) => {
     const { cart, userStatus } = useSelector((state) => state);
     const history = useHistory();
     const cartLength = cart.length;
+    const logOutMessage = {
+        header: "Logged Out",
+        body: "Good Bye",
+        loggedIn: false,
+    };
 
     console.log(userStatus, "nav");
 
     const dispatch = useDispatch();
 
     const handleLogOut = () => {
-        dispatch(logOutAction());
+        dispatch(logOutAction(logOutMessage));
+        setShow(true);
         history.push("/");
     };
 

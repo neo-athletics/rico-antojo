@@ -12,13 +12,16 @@ import Menu from "./components/Menu";
 import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
 import ProtectedRoute from "./components/ProtectedRoute";
+import LogInToast from "./components/LogInToast";
+
 function App() {
     const [showModal, setShowModal] = useState(false);
-
+    const [show, setShow] = useState(false);
     return (
         <div className="App">
             <Modal showModal={showModal} setShowModal={setShowModal} />
-            <NavBar />
+            <LogInToast setShow={setShow} show={show} />
+            <NavBar setShow={setShow} />
             <Switch>
                 <Route path="/" exact>
                     <Home />
@@ -41,7 +44,7 @@ function App() {
                     <SignUp />
                 </Route>
                 <Route path="/login">
-                    <LogIn />
+                    <LogIn setShow={setShow} />
                 </Route>
             </Switch>
         </div>

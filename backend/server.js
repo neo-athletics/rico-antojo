@@ -40,35 +40,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 const PORT = process.env.PORT || 3000;
-
-passport.use(
-    "register",
-    new LocalStrategy(function (username, password, done) {
-        User.findOne({ username }, async function (err, user) {
-            if (err) return done(err);
-            if (user)
-                return done(null, false, { message: "Username already exist" });
-
-            const salt = await bcrypt.genSalt(10);
-            const hashPass = await bcrypt.hash(password, salt);
-
-            // const user = new User({
-            //   username,
-            //   email,
-            //   password: hashPass,
-            // });
-
-            console.log(user);
-
-            // user
-            //   .save()
-            //   .then((result) => {
-            //     res.status(201).redirect("/");
-            //   })
-            //   .catch((err) => console.log(err));
-        });
-    })
-);
 passport.serializeUser(function (user, done) {
     done(null, user.id);
 });
@@ -78,6 +49,41 @@ passport.deserializeUser(function (id, done) {
         done(err, user);
     });
 });
+passport.use(
+    "register",
+    new LocalStrategy({ passReqToCallback: true }, function (
+        req,
+        username,
+        password,
+        done
+    ) {
+        console.log(req.body.email, "email here");
+        const { email } = req.body;
+        User.findOne({ username }, async function (err, user) {
+            if (err) return done(err);
+            if (user)
+                return done(null, false, { message: "Username already exist" });
+
+            const salt = await bcrypt.genSalt(10);
+            const hashPass = await bcrypt.hash(password, salt);
+
+            const userCredentials = new User({
+                username,
+                email,
+                password: hashPass,
+            });
+
+            userCredentials
+                .save()
+                .then((result) => {
+                    // res.status(201).redirect("/");
+                    return done(null, userCredentials);
+                })
+                .catch((err) => console.log(err));
+        });
+    })
+);
+
 passport.use(
     "login",
     new LocalStrategy(
@@ -162,26 +168,24 @@ app.post(
             }
             return true;
         }),
-
-    async (req, res, next) => {
-        console.log(req.body);
+    (req, res, next) => {
         const errors = validationResult(req);
-        console.log(errors);
 
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        const { username, email, password } = req.body;
+
         passport.authenticate("register", (err, user, info) => {
             if (err) {
                 console.log(err);
             }
             if (info !== undefined) {
                 console.log(info);
+                res.status(403).send({ ...info });
             } else {
                 req.logIn(user, (err) => {
-                    if (err) return next(err);
-                    return res.redirect("/");
+                    if (err) throw err;
+                    res.send({ message: "successfully signed up" });
                 });
             }
         })(req, res, next);
@@ -199,8 +203,6 @@ app.post(
             }
             if (info !== undefined) {
                 res.status(403).send({ ...info });
-                console.log(info, "error happening");
-                console.log(req.body);
             } else {
                 req.logIn(user, (err) => {
                     console.log(user);

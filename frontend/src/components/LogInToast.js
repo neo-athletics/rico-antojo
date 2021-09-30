@@ -26,7 +26,7 @@ const LogInToast = ({ setShow, show }) => {
             <Toast.Body>
                 {userStatus.message?.body}
                 {userStatus.message?.loggedIn &&
-                    `, ${userStatus.user?.username}`}
+                    ` ${userStatus.user?.username}`}
             </Toast.Body>
         </Toast>
     );

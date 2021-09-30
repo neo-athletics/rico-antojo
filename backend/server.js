@@ -130,6 +130,7 @@ app.get("/api/products", async (req, res) => {
 app.post(
     "/signup",
     body("username")
+        .toLowerCase()
         .notEmpty()
         .trim()
         .escape()
@@ -144,6 +145,7 @@ app.post(
     body("email")
         .toLowerCase()
         .isEmail()
+        .withMessage("Enter a valid email value E.g. johndoe@smith.com")
         .notEmpty()
         .trim()
         .custom((val) => {
@@ -172,15 +174,16 @@ app.post(
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
+            console.log(errors);
             return res.status(400).json({ errors: errors.array() });
         }
 
         passport.authenticate("register", (err, user, info) => {
             if (err) {
-                console.log(err);
+                console.log(err, "err");
             }
             if (info !== undefined) {
-                console.log(info);
+                console.log(info, "info error");
                 res.status(403).send({ ...info });
             } else {
                 req.logIn(user, (err) => {

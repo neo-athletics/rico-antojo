@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router";
-import e from "connect-flash";
 
 const SignUp = () => {
     const { register, handleSubmit } = useForm();
     const userState = useSelector((state) => state.userStatus);
+    const [errors, setErrors] = useState([]);
 
     if (userState.status === "success") {
         console.log("did work");
@@ -20,8 +20,10 @@ const SignUp = () => {
             const { message } = await res.data;
             console.log(message);
         } catch (err) {
-            const error = err?.response?.data?.errors[0];
-            console.log(error?.msg);
+            const error = err?.response?.data?.errors;
+            setErrors(error);
+
+            console.log(error, "sign up error");
         }
     };
 
@@ -32,6 +34,7 @@ const SignUp = () => {
     return (
         <div>
             <h1>Sign Up</h1>
+            {errors.length > 0 && errors.map((error) => <p>{error.msg}</p>)}
             <form
                 onSubmit={handleSubmit(onSubmitForm)}
                 action="/signup"
@@ -60,7 +63,7 @@ const SignUp = () => {
                     minLength="8"
                     {...register("password", { required: true })}
                 />
-                <label htmlFor="password2">re-enter password</label>
+                <label htmlFor="password2">confirm password</label>
                 <input
                     type="password"
                     id="password2"

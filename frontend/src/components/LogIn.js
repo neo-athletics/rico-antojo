@@ -11,7 +11,7 @@ const LogIn = ({ setShow }) => {
     const { state } = useLocation();
     const logInMessage = {
         header: "Logged In",
-        body: "Welcome back",
+        body: "Welcome",
         loggedIn: true,
     };
 

@@ -41,7 +41,7 @@ function App() {
                     <Cart />
                 </Route>
                 <Route path="/signup">
-                    <SignUp />
+                    <SignUp setShow={setShow} />
                 </Route>
                 <Route path="/login">
                     <LogIn setShow={setShow} />

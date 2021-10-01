@@ -9,11 +9,6 @@ const LogIn = ({ setShow }) => {
     const userState = useSelector((state) => state.userStatus);
     const [user, setUser] = useState({ username: "", password: "" });
     const { state } = useLocation();
-    const logInMessage = {
-        header: "Logged In",
-        body: "Welcome",
-        loggedIn: true,
-    };
 
     const handleChange = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value });
@@ -22,7 +17,7 @@ const LogIn = ({ setShow }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         //dispatch an asynchronous action here when user submits login
-        dispatch(logIn(user, setShow, logInMessage));
+        dispatch(logIn(user, setShow));
     };
     if (userState.status === "success") {
         console.log("did work");

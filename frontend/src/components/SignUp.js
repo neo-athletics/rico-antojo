@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router";
+import { logIn } from "../actions/logInAction";
 
-const SignUp = () => {
+const SignUp = ({ setShow }) => {
     const { register, handleSubmit } = useForm();
     const userState = useSelector((state) => state.userStatus);
     const [errors, setErrors] = useState([]);
+    const dispatch = useDispatch();
 
     if (userState.status === "success") {
         console.log("did work");
@@ -18,6 +20,12 @@ const SignUp = () => {
         try {
             const res = await axios.post("http://localhost:5000/signup", data);
             const { message } = await res.data;
+            dispatch(
+                logIn(
+                    { username: data.username, password: data.password },
+                    setShow
+                )
+            );
             console.log(message);
         } catch (err) {
             const error = err?.response?.data?.errors;

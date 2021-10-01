@@ -12,18 +12,13 @@ const NavBar = ({ setShow }) => {
     const { cart, userStatus } = useSelector((state) => state);
     const history = useHistory();
     const cartLength = cart.length;
-    const logOutMessage = {
-        header: "Logged Out",
-        body: "Good Bye",
-        loggedIn: false,
-    };
 
     console.log(userStatus, "nav");
 
     const dispatch = useDispatch();
 
     const handleLogOut = () => {
-        dispatch(logOutAction(logOutMessage));
+        dispatch(logOutAction());
         setShow(true);
         history.push("/");
     };
@@ -51,7 +46,7 @@ const NavBar = ({ setShow }) => {
                         </Nav.Link>
                         <SideCart />
                     </div>
-                    {!userStatus.status && (
+                    {userStatus.status !== "success" && (
                         <>
                             <Nav.Link as={Link} to="/signup">
                                 Sign Up

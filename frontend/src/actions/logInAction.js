@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const logIn = (userInfo, setShow, message) => async (dispatch) => {
+export const logIn = (userInfo, setShow) => async (dispatch) => {
     //dispatch login request
 
     dispatch({ type: "LOGIN_REQUEST" });
@@ -12,7 +12,7 @@ export const logIn = (userInfo, setShow, message) => async (dispatch) => {
 
         dispatch({
             type: "LOGIN_SUCCESS",
-            payload: { user, message },
+            payload: { user },
         });
         setShow(true);
     } catch (err) {

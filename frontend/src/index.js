@@ -20,11 +20,23 @@ const store = createStore(
             window.__REDUX_DEVTOOLS_EXTENSION__()
     )
 );
+function getUser() {
+    const { userStatus } = store.getState();
+    if (
+        userStatus.user &&
+        Object.keys(userStatus.user).length === 0 &&
+        userStatus.user.constructor === Object
+    ) {
+        return {};
+    } else {
+        return userStatus;
+    }
+}
 
 store.subscribe(() => {
     saveState({
         cart: store.getState().cart,
-        userStatus: store.getState().userStatus,
+        userStatus: getUser(),
     });
 });
 

@@ -1,22 +1,21 @@
 export const loadState = () => {
-  try {
-    const serialState = localStorage.getItem("state"); //get state data
+    try {
+        const serialState = localStorage.getItem("state"); //get state data
 
-    if (serialState === null) {
-      return undefined;
+        if (serialState === null) {
+            return undefined;
+        }
+
+        return JSON.parse(serialState);
+    } catch (err) {
+        return undefined;
     }
-
-    return JSON.parse(serialState);
-  } catch (err) {
-    return undefined;
-  }
 };
-
 export const saveState = (state) => {
-  try {
-    const serialState = JSON.stringify(state);
-    localStorage.setItem("state", serialState);
-  } catch (err) {
-    console.log(err);
-  }
+    try {
+        const serialState = JSON.stringify(state);
+        localStorage.setItem("state", serialState);
+    } catch (err) {
+        console.log(err);
+    }
 };

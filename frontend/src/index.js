@@ -9,11 +9,11 @@ import reducers from "./reducers/reducers";
 import { BrowserRouter as Router } from "react-router-dom";
 import { loadState, saveState } from "./localStorage";
 
-const persistantData = loadState();
+const persistentData = loadState();
 
 const store = createStore(
     reducers,
-    persistantData,
+    persistentData,
     compose(
         applyMiddleware(thunkMiddleware),
         window.__REDUX_DEVTOOLS_EXTENSION__ &&

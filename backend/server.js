@@ -21,6 +21,8 @@ app.use(
     })
 );
 dotenv.config();
+const PORT = process.env.PORT || 3000;
+
 mongoose
     .connect(process.env.URI, {
         useNewUrlParser: true,
@@ -39,7 +41,6 @@ mongoose
 app.use(passport.initialize());
 app.use(passport.session());
 
-const PORT = process.env.PORT || 3000;
 passport.serializeUser(function (user, done) {
     done(null, user.id);
 });

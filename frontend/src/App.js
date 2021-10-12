@@ -27,8 +27,8 @@ function App() {
                     <Home />
                 </Route>
                 {/* <Route path="/menu">
-          <Menu setShowModal={setShowModal} />
-        </Route> */}
+                    <Menu setShowModal={setShowModal} />
+                </Route> */}
                 <ProtectedRoute
                     path="/menu"
                     component={Menu}

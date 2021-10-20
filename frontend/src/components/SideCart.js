@@ -1,6 +1,7 @@
 import React from "react";
 import { Col, Row, Container, Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const SideCart = () => {
     const cart = useSelector((state) => state.cart);
@@ -51,11 +52,11 @@ const SideCart = () => {
                     ))}
 
                     <Row>
-                        <form action="" method="">
+                        <Link to="/checkout">
                             <Button variant="primary" type="submit">
                                 Check Out
                             </Button>
-                        </form>
+                        </Link>
                     </Row>
                 </Col>
             </Container>

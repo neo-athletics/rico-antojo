@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { updateItemQty, removeItem } from "../actions/actions";
 import { Button, Container, Row, Col } from "react-bootstrap";
-// import SideCart from "./SideCart";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
     const cart = useSelector((state) => state.cart);
@@ -24,7 +24,6 @@ const Cart = () => {
     return (
         <>
             <Container>
-                {/* <SideCart /> */}
                 <Row>
                     <h1>Ready to check out</h1>
                 </Row>
@@ -51,8 +50,6 @@ const Cart = () => {
                                     </Col>
                                     <Col>
                                         <select
-                                            // name={"quantity"}
-                                            // ref={register}
                                             {...register("quantity")}
                                             value={item.quantity}
                                             onChange={(e) =>
@@ -84,11 +81,11 @@ const Cart = () => {
                     </Col>
                 </Row>
                 <Row>
-                    <form action="" method="">
+                    <Link to="/checkout">
                         <Button variant="primary" type="submit">
                             Check Out
                         </Button>
-                    </form>
+                    </Link>
                 </Row>
             </Container>
         </>

@@ -7,7 +7,7 @@ export const logIn = (userInfo, setShow) => async (dispatch) => {
 
     try {
         //dispatch logIn success
-        const res = await axios.post("http://localhost:5000/login", userInfo);
+        const res = await axios.post("http://localhost:8080/login", userInfo);
         const user = await res.data;
 
         dispatch({
@@ -17,10 +17,10 @@ export const logIn = (userInfo, setShow) => async (dispatch) => {
         setShow(true);
     } catch (err) {
         //dispatch logIn failure
-        console.log(err.response.data);
+
         dispatch({
             type: "LOGIN_FAILURE",
-            error: err.response.data.message,
+            error: err?.response?.data?.message,
         });
     }
 };

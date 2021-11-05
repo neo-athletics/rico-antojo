@@ -9,6 +9,10 @@ import Item from "./models/item.js";
 import { body, validationResult } from "express-validator";
 import bcrypt from "bcrypt";
 import cors from "cors";
+import Stripe from "stripe";
+const stripeAPI = Stripe(
+    "sk_test_51JiY3SHQGEsFjDv8BU9d9xnIXxJEOBtXxWDOY1toIWssjr3YgCjemEVlu5eO2H3b5XN9kX1WvbfUPNbPs8uSNUsL00TiqwiBa5"
+);
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -217,6 +221,24 @@ app.post(
         })(req, res, next);
     }
 );
+//100 cents = $1, minimum is $0.50 US
+const calculateOrderAmount = (items) => {
+    let total = items.reduce((prev, curr) => prev + curr.price, 0);
+    //convert to cents
+    return total * 100;
+};
+
+app.post("/create-payment-intent", async (req, res) => {
+    const { items } = req.body;
+
+    const paymentIntent = await stripeAPI.paymentIntents.create({
+        amount: calculateOrderAmount(items),
+        currency: "usd",
+        payment_method_types: ["card"],
+    });
+
+    res.send({ clientSecret: paymentIntent.client_secret });
+});
 
 // app.get("/api/products/:id", (req, res) => {
 //   const product = products.find((item) => item._id === req.params.id);

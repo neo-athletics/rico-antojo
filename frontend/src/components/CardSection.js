@@ -12,14 +12,13 @@ const CardSection = () => {
     const elements = useElements();
 
     const fetchData = async () => {
-        const res = await axios.post("/create-payment-intent", {
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ items: [...cart] }),
-        });
-        const data = await res.json();
-        setClientSecret(data.clientSecret);
+        const res = await axios.post(
+            "http://localhost:8080/create-payment-intent",
+            { items: [...cart] }
+        );
+        const data = await res;
+        const { clientSecret } = await data;
+        setClientSecret(clientSecret);
     };
 
     useEffect(() => {

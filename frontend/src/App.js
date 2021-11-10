@@ -52,7 +52,7 @@ function App() {
 
                 <Route path="/checkout">
                     <Elements stripe={stripePromise}>
-                        <CardSection />{" "}
+                        <CardSection />
                     </Elements>
                 </Route>
 

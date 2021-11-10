@@ -10,6 +10,7 @@ import { body, validationResult } from "express-validator";
 import bcrypt from "bcrypt";
 import cors from "cors";
 import Stripe from "stripe";
+const endpointSecret = "whsec_qp4TURlOM1zSjPwzSoSNyBt08LKXrywi";
 const stripeAPI = Stripe(
     "sk_test_51JiY3SHQGEsFjDv8BU9d9xnIXxJEOBtXxWDOY1toIWssjr3YgCjemEVlu5eO2H3b5XN9kX1WvbfUPNbPs8uSNUsL00TiqwiBa5"
 );
@@ -238,6 +239,39 @@ app.post("/create-payment-intent", async (req, res) => {
     });
 
     res.send({ clientSecret: paymentIntent.client_secret });
+});
+
+app.post("/webhook", express.raw({ type: "application/json" }), (req, res) => {
+    const event = req.body;
+
+    if (endpointSecret) {
+        //get the signature sent by stripe
+        const signature = req.headers["stripe-signature"];
+
+        try {
+            event = stripeAPI.webhooks.constructEvent(
+                req.body,
+                signature,
+                endpointSecret
+            );
+        } catch (err) {
+            console.log(`webhook verification failed.`, err.message);
+            return res.sendStatus(400);
+        }
+    }
+
+    switch (event.type) {
+        case "payment_intent.succeeded":
+            const paymentIntent = event.data.object;
+            console.log(
+                `PaymentIntent for ${paymentIntent.amount} was successful`
+            );
+            //store invoice to database correlated to the user
+            break;
+        default:
+            console.log(`Unhandled event type ${event.type}`);
+    }
+    res.send();
 });
 
 // app.get("/api/products/:id", (req, res) => {

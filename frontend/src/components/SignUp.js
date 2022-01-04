@@ -18,7 +18,7 @@ const SignUp = ({ setShow }) => {
 
     const userSignUp = async (data) => {
         try {
-            const res = await axios.post("http://localhost:5000/signup", data);
+            const res = await axios.post("http://localhost:8080/signup", data);
             const { message } = await res.data;
             dispatch(
                 logIn(
@@ -42,7 +42,7 @@ const SignUp = ({ setShow }) => {
     return (
         <div>
             <h1>Sign Up</h1>
-            {errors.length > 0 && errors.map((error) => <p>{error.msg}</p>)}
+            {errors?.length > 0 && errors?.map((error) => <p>{error.msg}</p>)}
             <form
                 onSubmit={handleSubmit(onSubmitForm)}
                 action="/signup"

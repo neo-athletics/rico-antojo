@@ -1,10 +1,17 @@
 import axios from "axios";
 
-export const logOutAction = () => async (dispatch) => {
-    dispatch({ type: "LOG_OUT", payload: { user: {} } });
+export const logOutAction = () => (dispatch) => {
     try {
-        const logOut = await axios.get("http://localhost:8080/logout");
-        const logOutRes = await logOut;
+        const logOut = axios.delete("http://localhost:8080/logout", {
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Content-Type": "application/json",
+            },
+            withCredentials: true,
+        });
+        // const logOutRes = await logOut;
+        // console.log(logOutRes);
+        dispatch({ type: "LOG_OUT", payload: { user: {} } });
     } catch (err) {
         console.log(err);
     }

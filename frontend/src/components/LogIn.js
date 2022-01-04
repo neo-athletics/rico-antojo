@@ -17,7 +17,7 @@ const LogIn = ({ setShow }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         //dispatch an asynchronous action here when user submits login
-        dispatch(logIn(user, setShow));
+        dispatch(logIn(user, setShow, setUser));
     };
     if (userState.status === "success") {
         console.log("did work");

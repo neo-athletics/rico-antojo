@@ -1,32 +1,36 @@
 import express from "express";
 import dotenv from "dotenv";
-import expressSession from "express-session";
+import session from "express-session";
 import passport from "passport";
-import { Strategy as LocalStrategy } from "passport-local";
 import mongoose from "mongoose";
 import User from "./models/user.js";
 import Item from "./models/item.js";
 import { body, validationResult } from "express-validator";
-import bcrypt from "bcrypt";
 import cors from "cors";
 import Stripe from "stripe";
+import helmet from "helmet";
+import cookieParser from "cookie-parser";
+import MongoStore from "connect-mongo";
+import passportConfig from "./configPassport.js";
+import { Strategy as LocalStrategy } from "passport-local";
+import bcrypt from "bcrypt";
+
 const endpointSecret = "whsec_qp4TURlOM1zSjPwzSoSNyBt08LKXrywi";
+
 const stripeAPI = Stripe(
     "sk_test_51JiY3SHQGEsFjDv8BU9d9xnIXxJEOBtXxWDOY1toIWssjr3YgCjemEVlu5eO2H3b5XN9kX1WvbfUPNbPs8uSNUsL00TiqwiBa5"
 );
+
 const app = express();
-app.use(cors());
+
+app.use(helmet());
+app.use(cookieParser("cookie"));
+
+dotenv.config();
+const PORT = process.env.PORT || 5000;
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(
-    expressSession({
-        secret: "cookie",
-        resave: false,
-        saveUninitialized: false,
-    })
-);
-dotenv.config();
-const PORT = process.env.PORT || 3000;
 
 mongoose
     .connect(process.env.URI, {
@@ -42,19 +46,27 @@ mongoose
         );
     })
     .catch((err) => console.log(err));
-//passport.js
-app.use(passport.initialize());
-app.use(passport.session());
 
-passport.serializeUser(function (user, done) {
-    done(null, user.id);
-});
+app.use(
+    session({
+        secret: "cookie",
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            path: "/",
+            httpOnly: true,
+            secure: false,
+            maxAge: 1000 * 60 * 60 * 24,
+        },
+        store: MongoStore.create({
+            mongoUrl: process.env.URI,
+            dbName: "e-commerce",
+        }),
+    })
+);
 
-passport.deserializeUser(function (id, done) {
-    User.findById(id, function (err, user) {
-        done(err, user);
-    });
-});
+// passportConfig(User, app);
+
 passport.use(
     "register",
     new LocalStrategy({ passReqToCallback: true }, function (
@@ -68,7 +80,9 @@ passport.use(
         User.findOne({ username }, async function (err, user) {
             if (err) return done(err);
             if (user)
-                return done(null, false, { message: "Username already exist" });
+                return done(null, false, {
+                    message: "Username already exist",
+                });
 
             const salt = await bcrypt.genSalt(10);
             const hashPass = await bcrypt.hash(password, salt);
@@ -82,7 +96,6 @@ passport.use(
             userCredentials
                 .save()
                 .then((result) => {
-                    // res.status(201).redirect("/");
                     return done(null, userCredentials);
                 })
                 .catch((err) => console.log(err));
@@ -91,14 +104,15 @@ passport.use(
 );
 
 passport.use(
-    "login",
     new LocalStrategy(
         { usernameField: "username", passwordField: "password" },
         function (username, password, done) {
             User.findOne({ username }, function (err, user) {
                 if (err) return done(err);
                 if (!user)
-                    return done(null, false, { message: "Incorrect username" });
+                    return done(null, false, {
+                        message: "Incorrect username",
+                    });
 
                 bcrypt.compare(password, user.password, function (err, res) {
                     if (err) return done(err);
@@ -106,33 +120,64 @@ passport.use(
                         return done(null, false, {
                             message: "Incorrect password",
                         });
-
+                    console.log(user, "strategy");
                     return done(null, user);
                 });
             });
         }
     )
 );
-// app.use("/login", (req, res, next) => {
-//   console.log(req.flash());
-//   const { error } = req.flash();
-//   console.log(error);
 
-//   next();
-// });
+passport.serializeUser(function (user, done) {
+    console.log(user.id, "accessing");
+    done(null, user.id);
+});
+
+passport.deserializeUser(function (id, done) {
+    User.findById(id, function (err, user) {
+        return done(err, user);
+    });
+});
+//passport.js
+app.use(passport.initialize());
+app.use(passport.session());
+
+const myMiddleware = (req, res, next) => {
+    console.log(
+        req.user,
+        req.session.passport,
+        "myMiddleware",
+        req.isAuthenticated()
+    );
+    next();
+};
+//check authentication
+
+app.use(myMiddleware);
 
 app.get("/", (req, res) => {});
-app.get("/logout", (req, res) => {
-    req.logout();
-    console.log("redirecting");
-    // res.redirect("/");
-});
-app.get("/api/products", async (req, res) => {
-    Item.find()
-        .then((result) => res.send(result))
-        .catch((err) => console.log(err));
-});
-
+app.post(
+    "/login",
+    body("username").notEmpty().trim().escape(),
+    body("password").notEmpty().trim().escape().toLowerCase(),
+    (req, res, next) => {
+        passport.authenticate("local", (err, user, info) => {
+            if (err) {
+                console.log(err, "error happened");
+            }
+            if (info !== undefined) {
+                res.status(403).send({ ...info });
+            } else {
+                req.logIn(user, function (err) {
+                    if (err) throw err;
+                    req.session.user = user.username;
+                    res.send({ username: user.username });
+                });
+                console.log(req.user, "found it");
+            }
+        })(req, res, next);
+    }
+);
 app.post(
     "/signup",
     body("username")
@@ -200,28 +245,25 @@ app.post(
         })(req, res, next);
     }
 );
+app.get("/api/products", async (req, res) => {
+    Item.find()
+        .then((result) => res.send(result))
+        .catch((err) => console.log(err));
+});
 
-app.post(
-    "/login",
-    body("username").notEmpty().trim().escape(),
-    body("password").notEmpty().trim().escape().toLowerCase(),
-    (req, res, next) => {
-        passport.authenticate("login", (err, user, info) => {
-            if (err) {
-                console.log(err, "error happened");
-            }
-            if (info !== undefined) {
-                res.status(403).send({ ...info });
-            } else {
-                req.logIn(user, (err) => {
-                    console.log(user);
-                    if (err) throw err;
-                    res.send({ username: user.username });
-                });
-            }
-        })(req, res, next);
+app.delete("/logout", (req, res) => {
+    if (req.session) {
+        req.logout();
+        req.session.destroy((err) => {
+            console.log("logout");
+            res.clearCookie("connect.sid");
+            res.send("Logged out");
+        });
+    } else {
+        res.end();
     }
-);
+});
+
 //100 cents = $1, minimum is $0.50 US
 const calculateOrderAmount = (items) => {
     let total = items.reduce((prev, curr) => prev + curr.price, 0);
@@ -264,9 +306,13 @@ app.post("/webhook", express.raw({ type: "application/json" }), (req, res) => {
         case "payment_intent.succeeded":
             const paymentIntent = event.data.object;
             console.log(
-                `PaymentIntent for ${paymentIntent.amount} was successful`
+                `PaymentIntent for ${paymentIntent.amount} was successful`,
+                req.session
             );
             //store invoice to database correlated to the user
+            if (req.isAuthenticated()) {
+                User.findOneAndUpdate({ _id: req.user });
+            }
             break;
         default:
             console.log(`Unhandled event type ${event.type}`);

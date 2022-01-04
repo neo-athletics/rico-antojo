@@ -16,7 +16,7 @@ const CardSection = () => {
             "http://localhost:8080/create-payment-intent",
             { items: [...cart] }
         );
-        const data = await res;
+        const { data } = await res;
         const { clientSecret } = await data;
         setClientSecret(clientSecret);
     };

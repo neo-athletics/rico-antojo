@@ -2,11 +2,13 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { updateItemQty, removeItem } from "../actions/actions";
-import { Button, Container, Row, Col } from "react-bootstrap";
+import { Button, Container, Row, Col, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
 
 const Cart = () => {
-    const cart = useSelector((state) => state.cart);
+    const { cart, userStatus } = useSelector((state) => state);
+    const history = useHistory();
 
     const { register, handleSubmit, watch } = useForm();
 
@@ -21,6 +23,14 @@ const Cart = () => {
         return accu + curr.price * curr.quantity;
     };
     console.log(cart, quantity);
+
+    const handleClick = () => {
+        history.push("/cart");
+    };
+    const discount = parseFloat(
+        cart.reduce(reducer, 0.0) - cart.reduce(reducer, 0.0) * 0.1
+    ).toFixed(2);
+
     return (
         <>
             <Container>
@@ -29,6 +39,9 @@ const Cart = () => {
                 </Row>
                 <Row>
                     <Col style={{ paddingLeft: 0 }} lg={9}>
+                        {cart.length === 0 && (
+                            <p>There are currently no items in your cart</p>
+                        )}
                         {cart.map((item) => (
                             <>
                                 <div className={"itemLine"}></div>
@@ -74,15 +87,65 @@ const Cart = () => {
                         ))}
                     </Col>
                     <Col className={"d-flex justify-content-center"}>
-                        <span>
-                            Total $
-                            {parseFloat(cart.reduce(reducer, 0.0)).toFixed(2)}
-                        </span>
+                        <Container>
+                            {!userStatus.status && (
+                                <>
+                                    <Row>
+                                        <p>Log In and get 10% off!</p>
+                                    </Row>
+                                    <Row>
+                                        <Button variant="outline-primary">
+                                            <Nav.Link
+                                                as={Link}
+                                                onClick={handleClick}
+                                                to="/login"
+                                                className="check-out-link"
+                                            >
+                                                Log In
+                                            </Nav.Link>
+                                        </Button>
+                                    </Row>
+                                    <Row>
+                                        <p>
+                                            Don't have an account?, Sign up it's
+                                            free!
+                                        </p>
+                                    </Row>
+                                    <Row>
+                                        <Button variant="outline-secondary">
+                                            <Nav.Link
+                                                as={Link}
+                                                onClick={handleClick}
+                                                to="/signup"
+                                                className="check-out-link"
+                                            >
+                                                Sign Up
+                                            </Nav.Link>
+                                        </Button>
+                                    </Row>
+                                </>
+                            )}
+                            <Row>
+                                <span>
+                                    Total $
+                                    {userStatus.status === "success"
+                                        ? discount
+                                        : parseFloat(
+                                              cart.reduce(reducer, 0.0)
+                                          ).toFixed(2)}
+                                </span>
+                            </Row>
+                        </Container>
                     </Col>
                 </Row>
+
                 <Row>
                     <Link to="/checkout">
-                        <Button variant="primary" type="submit">
+                        <Button
+                            disabled={cart.length > 0 ? false : true}
+                            variant="primary"
+                            type="submit"
+                        >
                             Check Out
                         </Button>
                     </Link>

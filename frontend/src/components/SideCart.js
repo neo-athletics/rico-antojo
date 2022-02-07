@@ -4,20 +4,27 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const SideCart = () => {
-    const cart = useSelector((state) => state.cart);
+    const { cart, userStatus } = useSelector((state) => state);
 
     const reducer = (accu, curr) => {
         return accu + curr.price * curr.quantity;
     };
+    const discount = parseFloat(
+        cart.reduce(reducer, 0.0) - cart.reduce(reducer, 0.0) * 0.1
+    ).toFixed(2);
 
     return (
-        <div className="dropdown-menu sideCart">
+        <div className="dropdown-menu sideCart" style={{ left: "-107px" }}>
             <Container>
                 <Col>
                     <Row>
                         <p>
                             Total $
-                            {parseFloat(cart.reduce(reducer, 0.0)).toFixed(2)}
+                            {userStatus.status === "success"
+                                ? discount
+                                : parseFloat(cart.reduce(reducer, 0.0)).toFixed(
+                                      2
+                                  )}
                         </p>
                     </Row>
 

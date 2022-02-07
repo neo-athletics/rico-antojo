@@ -65,77 +65,77 @@
 //   opacity: 1;
 // }
 .itemList li {
-  display: inline-block;
-  margin: 10px;
+    display: inline-block;
+    margin: 10px;
 }
 .itemList {
-  padding: 0;
+    padding: 0;
 }
 .select-item-form {
-  margin-right: 10px;
+    margin-right: 10px;
 }
 .submit-item-form {
-  margin-right: 20px;
+    margin-right: 20px;
 }
 .itemLine:before {
-  content: "";
-  display: block;
-  height: 2px;
-  width: 100%;
-  background-color: gray;
+    content: "";
+    display: block;
+    height: 2px;
+    width: 100%;
+    background-color: gray;
 }
 .itemContainer {
-  height: 100px;
+    height: 100px;
 }
 .removeItem {
-  appearance: none;
-  background-color: transparent;
-  border: none;
-  margin-left: 10px;
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    margin-left: 10px;
 }
 .removeItem:after {
-  @extend %fa-icon;
-  @extend .fas;
-  content: fa-content($fa-var-trash);
+    @extend %fa-icon;
+    @extend .fas;
+    content: fa-content($fa-var-trash);
 }
 .cart {
-  position: relative;
-  .itemCount {
-    display: inline-block;
     position: relative;
-    top: -4px;
-    right: -2px;
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    background-color: rgb(59, 14, 165);
-    text-align: center;
-    span {
-      position: relative;
-      bottom: 3px;
-      color: white;
-      font-size: 12px;
+    .itemCount {
+        display: inline-block;
+        position: relative;
+        top: -4px;
+        right: -2px;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        background-color: rgb(59, 14, 165);
+        text-align: center;
+        span {
+            position: relative;
+            bottom: 3px;
+            color: white;
+            font-size: 12px;
+        }
     }
-  }
 }
 
 .dropdown:hover .dropdown-menu {
-  display: block;
+    display: block;
 }
 
 .sideCart {
-  width: 350px;
+    width: 350px;
 }
 .itemTotalPrice {
-  margin-left: auto;
+    margin-left: auto;
 }
 .itemQty {
-  margin-left: 10px;
+    margin-left: 10px;
 }
 .itemSideCart {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding: 6px;
-  box-shadow: 0px 0px 3px 0px black;
-  border-radius: 4px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 6px;
+    box-shadow: 0px 0px 3px 0px black;
+    border-radius: 4px;
 }

@@ -1,31 +1,57 @@
 .backDrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
 }
 .modalContent {
-  margin: 0 auto;
-  padding: 40px 10px 10px;
-  max-width: 600px;
-  height: 400px;
-  background: rgb(238, 235, 235);
-  border-radius: 10px;
+    margin: 0 auto;
+    padding: 40px 10px 10px;
+    max-width: 600px;
+    height: 400px;
+    background: rgb(238, 235, 235);
+    border-radius: 10px;
 }
 .modalContent p {
-  text-align: center;
+    text-align: center;
 }
 .modalButton {
-  appearance: none;
-  background-color: transparent;
-  border: none;
-  position: absolute;
-  top: 10px;
-  right: 10px;
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 .itemList {
-  list-style-type: none;
+    list-style-type: none;
+}
+.spinner {
+    margin: auto;
+}
+.spinner::after {
+    content: "";
+    display: block;
+    width: 50px;
+    height: 50px;
+    border: 10px solid #dfdfdf;
+    border-right-color: rgb(0, 119, 255);
+    border-radius: 50%;
+    left: 2px;
+    top: 2px;
+    animation: loading 1s linear infinite;
+}
+@keyframes loading {
+    to {
+        transform: rotate(1turn);
+    }
+}
+.check-out-link {
+    color: #5a5a5a;
+}
+.check-out-link:hover {
+    color: #ecebeb;
 }

@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logIn } from "../actions/logInAction";
 import { Redirect } from "react-router";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 
 const LogIn = ({ setShow }) => {
     const dispatch = useDispatch();
     const userState = useSelector((state) => state.userStatus);
     const [user, setUser] = useState({ username: "", password: "" });
-    const { state } = useLocation();
-
+    const location = useLocation();
+    const history = useHistory();
     const handleChange = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value });
     };
@@ -19,9 +19,11 @@ const LogIn = ({ setShow }) => {
         //dispatch an asynchronous action here when user submits login
         dispatch(logIn(user, setShow, setUser));
     };
+
     if (userState.status === "success") {
+        console.log(location, "from", history);
         console.log("did work");
-        return <Redirect to={state?.from || "/menu"} />;
+        return <Redirect to={history.goBack() || "/menu"} />;
     }
 
     return (

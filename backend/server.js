@@ -12,10 +12,9 @@ import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import MongoStore from "connect-mongo";
 import passportConfig from "./configPassport.js";
-import { Strategy as LocalStrategy } from "passport-local";
-import bcrypt from "bcrypt";
 
-const endpointSecret = "whsec_qp4TURlOM1zSjPwzSoSNyBt08LKXrywi";
+const endpointSecret =
+    "whsec_db98913f88b8fe8cba973be210c0e49c37dacbc95c49e3e9f261bf251bc176e3";
 
 const stripeAPI = Stripe(
     "sk_test_51JiY3SHQGEsFjDv8BU9d9xnIXxJEOBtXxWDOY1toIWssjr3YgCjemEVlu5eO2H3b5XN9kX1WvbfUPNbPs8uSNUsL00TiqwiBa5"
@@ -28,12 +27,28 @@ app.use(cookieParser("cookie"));
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
-app.use(express.json());
+app.use(
+    cors({
+        origin: "http://localhost:3000",
+        credentials: true,
+    })
+);
+
+// Use JSON parser for all non-webhook routes
+app.use((req, res, next) => {
+    if (req.originalUrl === "/webhook") {
+        next();
+    } else {
+        express.json()(req, res, next);
+    }
+});
+
 app.use(express.urlencoded({ extended: false }));
 
 mongoose
     .connect(process.env.URI, {
+        useFindAndModify: false,
+        useCreateIndex: true,
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })
@@ -54,7 +69,7 @@ app.use(
         saveUninitialized: false,
         cookie: {
             path: "/",
-            httpOnly: true,
+            httpOnly: false,
             secure: false,
             maxAge: 1000 * 60 * 60 * 24,
         },
@@ -65,97 +80,12 @@ app.use(
     })
 );
 
-// passportConfig(User, app);
+passportConfig(User, app);
 
-passport.use(
-    "register",
-    new LocalStrategy({ passReqToCallback: true }, function (
-        req,
-        username,
-        password,
-        done
-    ) {
-        console.log(req.body.email, "email here");
-        const { email } = req.body;
-        User.findOne({ username }, async function (err, user) {
-            if (err) return done(err);
-            if (user)
-                return done(null, false, {
-                    message: "Username already exist",
-                });
-
-            const salt = await bcrypt.genSalt(10);
-            const hashPass = await bcrypt.hash(password, salt);
-
-            const userCredentials = new User({
-                username,
-                email,
-                password: hashPass,
-            });
-
-            userCredentials
-                .save()
-                .then((result) => {
-                    return done(null, userCredentials);
-                })
-                .catch((err) => console.log(err));
-        });
-    })
-);
-
-passport.use(
-    new LocalStrategy(
-        { usernameField: "username", passwordField: "password" },
-        function (username, password, done) {
-            User.findOne({ username }, function (err, user) {
-                if (err) return done(err);
-                if (!user)
-                    return done(null, false, {
-                        message: "Incorrect username",
-                    });
-
-                bcrypt.compare(password, user.password, function (err, res) {
-                    if (err) return done(err);
-                    if (!res)
-                        return done(null, false, {
-                            message: "Incorrect password",
-                        });
-                    console.log(user, "strategy");
-                    return done(null, user);
-                });
-            });
-        }
-    )
-);
-
-passport.serializeUser(function (user, done) {
-    console.log(user.id, "accessing");
-    done(null, user.id);
-});
-
-passport.deserializeUser(function (id, done) {
-    User.findById(id, function (err, user) {
-        return done(err, user);
-    });
-});
-//passport.js
-app.use(passport.initialize());
-app.use(passport.session());
-
-const myMiddleware = (req, res, next) => {
-    console.log(
-        req.user,
-        req.session.passport,
-        "myMiddleware",
-        req.isAuthenticated()
-    );
-    next();
-};
 //check authentication
 
-app.use(myMiddleware);
-
 app.get("/", (req, res) => {});
+
 app.post(
     "/login",
     body("username").notEmpty().trim().escape(),
@@ -171,7 +101,9 @@ app.post(
                 req.logIn(user, function (err) {
                     if (err) throw err;
                     req.session.user = user.username;
-                    res.send({ username: user.username });
+                    res.send({
+                        username: user.username,
+                    });
                 });
                 console.log(req.user, "found it");
             }
@@ -185,6 +117,8 @@ app.post(
         .notEmpty()
         .trim()
         .escape()
+        .isLength({ min: 8 })
+        .withMessage("username must be at least 8 chars long")
         .custom((val) => {
             console.log(val);
             return User.findOne({ username: val }).then((user) => {
@@ -245,10 +179,24 @@ app.post(
         })(req, res, next);
     }
 );
-app.get("/api/products", async (req, res) => {
+const myMiddleware = (req, res, next) => {
+    console.log(req.path);
+    console.log(req.user, req.sessionID, "myMiddleware", req.isAuthenticated());
+
+    next();
+};
+app.get("/api/products", myMiddleware, async (req, res) => {
     Item.find()
         .then((result) => res.send(result))
         .catch((err) => console.log(err));
+});
+
+app.get("/user", myMiddleware, async (req, res) => {
+    if (req.isAuthenticated()) {
+        res.send({ username: req.user.username, isAuthenticated: true });
+    } else {
+        res.send({ username: null, isAuthenticated: false });
+    }
 });
 
 app.delete("/logout", (req, res) => {
@@ -264,42 +212,45 @@ app.delete("/logout", (req, res) => {
     }
 });
 
-//100 cents = $1, minimum is $0.50 US
-const calculateOrderAmount = (items) => {
-    let total = items.reduce((prev, curr) => prev + curr.price, 0);
-    //convert to cents
-    return total * 100;
+// minimum is $0.50 US
+const calculateOrderAmount = (items, userBool) => {
+    //have to convert to cents
+
+    let cartTotal = items.reduce((prev, curr) => prev + curr.price, 0) * 100;
+    let discountedTotal = (cartTotal - cartTotal * 0.1) * 100;
+
+    return userBool ? discountedTotal : cartTotal;
 };
 
 app.post("/create-payment-intent", async (req, res) => {
     const { items } = req.body;
-
+    const userBool = req.isAuthenticated();
     const paymentIntent = await stripeAPI.paymentIntents.create({
-        amount: calculateOrderAmount(items),
+        amount: calculateOrderAmount(items, userBool),
         currency: "usd",
         payment_method_types: ["card"],
+        metadata: { id: req?.user?.id },
     });
 
-    res.send({ clientSecret: paymentIntent.client_secret });
+    res.send({
+        clientSecret: paymentIntent.client_secret,
+    });
 });
 
 app.post("/webhook", express.raw({ type: "application/json" }), (req, res) => {
-    const event = req.body;
+    //get the signature sent by stripe
+    const signature = req.headers["stripe-signature"];
+    let event;
 
-    if (endpointSecret) {
-        //get the signature sent by stripe
-        const signature = req.headers["stripe-signature"];
-
-        try {
-            event = stripeAPI.webhooks.constructEvent(
-                req.body,
-                signature,
-                endpointSecret
-            );
-        } catch (err) {
-            console.log(`webhook verification failed.`, err.message);
-            return res.sendStatus(400);
-        }
+    try {
+        event = stripeAPI.webhooks.constructEvent(
+            req.body,
+            signature,
+            endpointSecret
+        );
+    } catch (err) {
+        console.log(`webhook verification failed.`, err.message);
+        return res.sendStatus(400);
     }
 
     switch (event.type) {
@@ -307,12 +258,28 @@ app.post("/webhook", express.raw({ type: "application/json" }), (req, res) => {
             const paymentIntent = event.data.object;
             console.log(
                 `PaymentIntent for ${paymentIntent.amount} was successful`,
-                req.session
+                paymentIntent.metadata.id
             );
             //store invoice to database correlated to the user
-            if (req.isAuthenticated()) {
-                User.findOneAndUpdate({ _id: req.user });
+            if (paymentIntent.metadata.id !== undefined) {
+                User.findByIdAndUpdate(
+                    paymentIntent.metadata.id,
+                    {
+                        $push: {
+                            receipts: paymentIntent.charges.data[0].receipt_url,
+                        },
+                    },
+                    { upsert: true },
+                    function (err, success) {
+                        if (err) {
+                            throw err;
+                        } else {
+                            console.log("updated user");
+                        }
+                    }
+                );
             }
+
             break;
         default:
             console.log(`Unhandled event type ${event.type}`);

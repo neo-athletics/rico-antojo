@@ -3,6 +3,7 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router";
+import { useHistory } from "react-router-dom";
 import { logIn } from "../actions/logInAction";
 
 const SignUp = ({ setShow }) => {
@@ -10,16 +11,22 @@ const SignUp = ({ setShow }) => {
     const userState = useSelector((state) => state.userStatus);
     const [errors, setErrors] = useState([]);
     const dispatch = useDispatch();
+    const history = useHistory();
 
     if (userState.status === "success") {
         console.log("did work");
-        return <Redirect to={"/"} />;
+        return <Redirect to={history.goBack() || "/"} />;
     }
 
     const userSignUp = async (data) => {
         try {
+            console.log("sending request");
             const res = await axios.post("http://localhost:8080/signup", data);
+            console.log("request send");
             const { message } = await res.data;
+            console.log(res.data, "error has occurred");
+            setErrors([]);
+            //dispatch login if there aren't any errors sent from backend
             dispatch(
                 logIn(
                     { username: data.username, password: data.password },
@@ -28,10 +35,9 @@ const SignUp = ({ setShow }) => {
             );
             console.log(message);
         } catch (err) {
+            console.log(err.response, "sign up error");
             const error = err?.response?.data?.errors;
             setErrors(error);
-
-            console.log(error, "sign up error");
         }
     };
 
@@ -53,7 +59,6 @@ const SignUp = ({ setShow }) => {
                     type="text"
                     id="username"
                     name="username"
-                    minLength="8"
                     {...register("username", { required: true })}
                 />
                 <label htmlFor="email">Email</label>

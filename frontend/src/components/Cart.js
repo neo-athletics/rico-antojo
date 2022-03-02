@@ -33,12 +33,12 @@ const Cart = () => {
 
     return (
         <>
-            <Container>
+            <Container className="checkout-container">
                 <Row>
                     <h1>Ready to check out</h1>
                 </Row>
                 <Row>
-                    <Col style={{ paddingLeft: 0 }} lg={9}>
+                    <Col style={{ paddingLeft: 0 }} md={12} lg={12} xl={12}>
                         {cart.length === 0 && (
                             <p>There are currently no items in your cart</p>
                         )}
@@ -61,7 +61,7 @@ const Cart = () => {
                                             ).toFixed(2)}
                                         </span>
                                     </Col>
-                                    <Col>
+                                    <Col sm={3}>
                                         <select
                                             {...register("quantity")}
                                             value={item.quantity}
@@ -86,69 +86,45 @@ const Cart = () => {
                             </>
                         ))}
                     </Col>
-                    <Col className={"d-flex justify-content-center"}>
-                        <Container>
-                            {!userStatus.status && (
-                                <>
-                                    <Row>
-                                        <p>Log In and get 10% off!</p>
-                                    </Row>
-                                    <Row>
-                                        <Button variant="outline-primary">
-                                            <Nav.Link
-                                                as={Link}
-                                                onClick={handleClick}
-                                                to="/login"
-                                                className="check-out-link"
-                                            >
-                                                Log In
-                                            </Nav.Link>
-                                        </Button>
-                                    </Row>
-                                    <Row>
-                                        <p>
-                                            Don't have an account?, Sign up it's
-                                            free!
-                                        </p>
-                                    </Row>
-                                    <Row>
-                                        <Button variant="outline-secondary">
-                                            <Nav.Link
-                                                as={Link}
-                                                onClick={handleClick}
-                                                to="/signup"
-                                                className="check-out-link"
-                                            >
-                                                Sign Up
-                                            </Nav.Link>
-                                        </Button>
-                                    </Row>
-                                </>
-                            )}
-                            <Row>
-                                <span>
-                                    Total $
-                                    {userStatus.status === "success"
-                                        ? discount
-                                        : parseFloat(
-                                              cart.reduce(reducer, 0.0)
-                                          ).toFixed(2)}
-                                </span>
-                            </Row>
-                        </Container>
-                    </Col>
                 </Row>
+                {!userStatus.status && (
+                    <Row className="promo-div">
+                        <p>
+                            <Link to={"/login"}>Log In</Link> and get 10% off!
+                            or
+                            <Link to={"/signup"}> Sign Up</Link> it's free!
+                        </p>
+                    </Row>
+                )}
+                <Row md={2}>
+                    <Col style={{ paddingLeft: "0" }}>
+                        <Link to="/checkout">
+                            <Button
+                                disabled={cart.length > 0 ? false : true}
+                                variant="primary"
+                                type="submit"
+                            >
+                                Check Out
+                            </Button>
+                        </Link>
+                    </Col>
 
-                <Row>
-                    <Link to="/checkout">
-                        <Button
-                            disabled={cart.length > 0 ? false : true}
-                            variant="primary"
-                            type="submit"
-                        >
-                            Check Out
-                        </Button>
-                    </Link>
+                    <Col
+                        style={{
+                            justifyContent: "end",
+                            display: "grid",
+                            paddingLeft: "0",
+                        }}
+                    >
+                        <span>
+                            Total $
+                            {userStatus.status === "success"
+                                ? discount
+                                : parseFloat(cart.reduce(reducer, 0.0)).toFixed(
+                                      2
+                                  )}
+                        </span>
+                    </Col>
                 </Row>
             </Container>
         </>

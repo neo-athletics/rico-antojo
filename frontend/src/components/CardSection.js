@@ -52,26 +52,34 @@ const CardSection = () => {
     return (
         <Container>
             <Link to="/cart">Back to Cart</Link>
-            {cart.map((item) => {
-                return (
-                    <>
-                        <p>
-                            {item.description} x {item.quantity} $
-                            {parseFloat(item.price * item.quantity).toFixed(2)}
-                        </p>
-                    </>
-                );
-            })}
-            <span>
-                Total $
-                {userStatus.status === "success"
-                    ? discount
-                    : parseFloat(cart.reduce(reducer, 0.0)).toFixed(2)}
-            </span>
-            <div>
+            <h3 className="items-title">Items</h3>
+            <Col className="checkout-cart">
+                {cart.map((item) => {
+                    return (
+                        <>
+                            <p>
+                                {item.description} x {item.quantity} $
+                                {parseFloat(item.price * item.quantity).toFixed(
+                                    2
+                                )}
+                            </p>
+                        </>
+                    );
+                })}
+                <p>
+                    <span>
+                        Total $
+                        {userStatus.status === "success"
+                            ? discount
+                            : parseFloat(cart.reduce(reducer, 0.0)).toFixed(2)}
+                    </span>
+                </p>
+            </Col>
+            <h3>Payment Details</h3>
+            <Col className="checkout-details">
                 <p>
                     The following payment method is for testing purposes. Please
-                    use the following card numbers for your testing.
+                    use the following card numbers.
                 </p>
                 <p>
                     For a successful payment use the following number: 4242 4242
@@ -82,15 +90,36 @@ const CardSection = () => {
                     0000 9995
                 </p>
                 <ul>
-                    <li>Enter any future date for card expiry.</li>
-                    <li>Enter any 3-digit number for CVC.</li>
-                    <li>Enter any billing postal code.</li>
+                    <li>
+                        <i class="fa-solid fa-asterisk"></i>
+                        Enter any future date for card expiry.
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-asterisk"></i>
+                        Enter any 3-digit number for CVC.
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-asterisk"></i>
+                        Enter any billing postal code.
+                    </li>
                 </ul>
-            </div>
-            <Col lg={9}>
+            </Col>
+            <Col style={{ paddingLeft: "0" }} lg={10}>
+                {" "}
+                <h3>Payment</h3>
                 <form onSubmit={handleSubmit}>
+                    {message && (
+                        <div
+                            className="danger"
+                            style={{ marginBottom: "10px" }}
+                        >
+                            {message}
+                        </div>
+                    )}
                     <PaymentElement />
+
                     <button
+                        className="payment-btn"
                         type="submit"
                         disabled={
                             isLoading || !stripe || !elements || cart.length > 0
@@ -98,7 +127,6 @@ const CardSection = () => {
                                 : true
                         }
                     >
-                        {/* create spinner  */}
                         {isLoading ? (
                             <Row>
                                 <div className="spinner"></div>
@@ -107,7 +135,6 @@ const CardSection = () => {
                             "Pay"
                         )}
                     </button>
-                    {message && <div>{message}</div>}
                 </form>
             </Col>
         </Container>

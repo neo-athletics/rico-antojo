@@ -1,7 +1,7 @@
 import "./App.css";
-import "./scss/style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "skeleton-elements/css/skeleton-elements.css";
+// import "skeleton-elements/css/skeleton-elements.css";
+import "./scss/style.css";
 import NavBar from "./components/NavBar";
 import { useState, useEffect } from "react";
 import Modal from "./components/Modal";
@@ -16,13 +16,13 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import LogInToast from "./components/LogInToast";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import dotenv from "dotenv";
+// import dotenv from "dotenv";
 import CardSection from "./components/CardSection";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import SuccessfulPayment from "./components/SuccessfulPayment";
 
-dotenv.config();
+// dotenv.config();
 
 const stripePromise = loadStripe(process.env.REACT_APP_PUBLISHABLE_KEY);
 
@@ -30,7 +30,7 @@ function App() {
     const [showModal, setShowModal] = useState(false);
     const [show, setShow] = useState(false);
     const cart = useSelector((state) => state.cart);
-    const [options, setOptions] = useState({ clientSecret: "" });
+    const [clientSecret, setClientSecret] = useState("");
 
     const fetchData = async () => {
         try {
@@ -42,7 +42,7 @@ function App() {
             const { data } = await res;
             console.log(data);
             const { clientSecret } = await data;
-            setOptions({ clientSecret: clientSecret });
+            setClientSecret(clientSecret);
         } catch (e) {
             console.log(e);
         }
@@ -90,6 +90,10 @@ function App() {
             fetchData();
         }
     }, [cart.length]);
+
+    const options = {
+        clientSecret,
+    };
 
     return (
         <div className="App">

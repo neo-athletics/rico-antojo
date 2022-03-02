@@ -2,7 +2,28 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logIn } from "../actions/logInAction";
 import { Redirect } from "react-router";
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation, useHistory, Link } from "react-router-dom";
+import { motion } from "framer-motion";
+
+export let variants = {
+    visible: {
+        opacity: 1,
+        transition: {
+            when: "beforeChildren",
+            staggerChildren: 0.3,
+            duration: 0.5,
+        },
+    },
+    hidden: { opacity: 0 },
+};
+
+export let item = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+        y: 0,
+        opacity: 1,
+    },
+};
 
 const LogIn = ({ setShow }) => {
     const dispatch = useDispatch();
@@ -27,12 +48,20 @@ const LogIn = ({ setShow }) => {
     }
 
     return (
-        <div>
-            <h1>Log In</h1>
+        <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={variants}
+            className="login-container"
+        >
+            <motion.h1 variants={item}>Log In</motion.h1>
             {userState.error && <p>{userState.error}</p>}
             <form onSubmit={handleSubmit} action="/login" method="POST">
-                <label htmlFor="username">username</label>
-                <input
+                <motion.label variants={item} htmlFor="username">
+                    username
+                </motion.label>
+                <motion.input
+                    variants={item}
                     type="text"
                     id="username"
                     name="username"
@@ -41,8 +70,11 @@ const LogIn = ({ setShow }) => {
                     onChange={handleChange}
                     required
                 />
-                <label htmlFor="password">password</label>
-                <input
+                <motion.label variants={item} htmlFor="password">
+                    password
+                </motion.label>
+                <motion.input
+                    variants={item}
                     type="password"
                     id="password"
                     name="password"
@@ -51,9 +83,20 @@ const LogIn = ({ setShow }) => {
                     onChange={handleChange}
                     required
                 />
-                <input type="submit" value="log in" />
+                <motion.input
+                    variants={item}
+                    className="login-btn"
+                    type="submit"
+                    value="log in"
+                />
             </form>
-        </div>
+            <motion.p
+                variants={item}
+                style={{ marginTop: "15px", marginBottom: "0" }}
+            >
+                Don't have an account? <Link to="/signup">Sign Up</Link>
+            </motion.p>
+        </motion.div>
     );
 };
 

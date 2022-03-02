@@ -3,8 +3,10 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { logIn } from "../actions/logInAction";
+import { motion } from "framer-motion";
+import { variants, item } from "./LogIn";
 
 const SignUp = ({ setShow }) => {
     const { register, handleSubmit } = useForm();
@@ -46,47 +48,80 @@ const SignUp = ({ setShow }) => {
     };
 
     return (
-        <div>
-            <h1>Sign Up</h1>
-            {errors?.length > 0 && errors?.map((error) => <p>{error.msg}</p>)}
+        <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={variants}
+            className="signup-container"
+        >
+            <motion.h1 variants={item}>Sign Up</motion.h1>
+            {errors?.length > 0 &&
+                errors?.map((error) => (
+                    <motion.p variants={item} className="danger">
+                        ! {error.msg}
+                    </motion.p>
+                ))}
             <form
                 onSubmit={handleSubmit(onSubmitForm)}
                 action="/signup"
                 method="post"
             >
-                <label htmlFor="username">username</label>
-                <input
+                <motion.label variants={item} htmlFor="username">
+                    username
+                </motion.label>
+                <motion.input
+                    variants={item}
                     type="text"
                     id="username"
                     name="username"
                     {...register("username", { required: true })}
                 />
-                <label htmlFor="email">Email</label>
-                <input
+                <motion.label variants={item} htmlFor="email">
+                    Email
+                </motion.label>
+                <motion.input
+                    variants={item}
                     type="email"
                     id="email"
                     name="email"
                     {...register("email", { required: true })}
                 />
-                <label htmlFor="password">password</label>
-                <input
+                <motion.label variants={item} htmlFor="password">
+                    password
+                </motion.label>
+                <motion.input
+                    variants={item}
                     type="password"
                     id="password"
                     name="password"
                     minLength="8"
                     {...register("password", { required: true })}
                 />
-                <label htmlFor="password2">confirm password</label>
-                <input
+                <motion.label variants={item} htmlFor="password2">
+                    confirm password
+                </motion.label>
+                <motion.input
+                    variants={item}
                     type="password"
                     id="password2"
                     name="password2"
                     minLength="8"
                     {...register("password2", { required: true })}
                 />
-                <input type="submit" value="sign up" />
+                <motion.input
+                    variants={item}
+                    className="signup-btn"
+                    type="submit"
+                    value="sign up"
+                />
             </form>
-        </div>
+            <motion.p
+                variants={item}
+                style={{ marginTop: "15px", marginBottom: "0" }}
+            >
+                Have an account? <Link to="/login">Log In</Link>
+            </motion.p>
+        </motion.div>
     );
 };
 

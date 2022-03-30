@@ -11,7 +11,6 @@ import Home from "./components/Home";
 import Menu from "./components/Menu";
 import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
-import ProtectedRoute from "./components/ProtectedRoute";
 import LogInToast from "./components/LogInToast";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";

@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { selectItem } from "../actions/actions";
 import axios from "axios";
 import SkeletonCard from "./SkeletonCard";
+import Wave from "./Wave";
 const Menu = ({ categories, setShowModal }) => {
     const [items, setItems] = useState([]);
     const [message, setMessage] = useState(null);
@@ -23,7 +24,7 @@ const Menu = ({ categories, setShowModal }) => {
 
     return (
         <>
-            <Container>
+            <Container className="menu-container">
                 {message ? (
                     <p>{message}</p>
                 ) : (
@@ -42,7 +43,12 @@ const Menu = ({ categories, setShowModal }) => {
                                             )
                                             .map((item) => {
                                                 return (
-                                                    <Col sm={12} md={6} lg={3}>
+                                                    <Col
+                                                        sm={12}
+                                                        md={6}
+                                                        lg={3}
+                                                        className="mb-4"
+                                                    >
                                                         <Item
                                                             setShowModal={
                                                                 setShowModal
@@ -59,12 +65,12 @@ const Menu = ({ categories, setShowModal }) => {
                     })
                 )}
             </Container>
+            <Wave />
         </>
     );
 };
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return { categories: state.categories, items: state.items };
 };
 

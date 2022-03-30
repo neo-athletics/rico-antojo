@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
     const logIn = useSelector((state) => state.userStatus);
-    console.log(logIn);
 
     return (
         <Route

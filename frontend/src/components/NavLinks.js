@@ -53,13 +53,10 @@ const NavLinks = ({ setShow, size, isOpen }) => {
             },
         },
     };
-    console.log(isOpen, " is nav open");
     return (
         <motion.ul variants={variants}>
             <motion.li variants={variantsLink}>
-                <Link exact to={"/"}>
-                    Home
-                </Link>
+                <Link to={"/"}>Home</Link>
             </motion.li>
             <motion.li variants={variantsLink}>
                 <Link to={"/menu"}>Menu</Link>
@@ -70,14 +67,12 @@ const NavLinks = ({ setShow, size, isOpen }) => {
 
             <div className="dropdown nav-item">
                 <motion.li variants={variantsLink}>
-                    {/* <motion.a href="/cart" className={"cart"}> */}
                     <Link to={"/cart"} className="cart">
                         Cart
                         <span className={"itemCount"}>
                             <span>{cartLength}</span>
                         </span>
                     </Link>
-                    {/* </motion.a> */}
                 </motion.li>
                 <SideCart />
             </div>

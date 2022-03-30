@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 
 const LogInToast = ({ setShow, show }) => {
     const { userStatus } = useSelector((state) => state);
-    console.log(userStatus, "toast");
 
     return (
         <Toast

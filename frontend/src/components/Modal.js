@@ -11,8 +11,6 @@ const backDrop = {
 const Modal = ({ selectedItem, showModal, setShowModal }) => {
     const [show, setShow] = useState(false);
 
-    console.log(selectedItem);
-
     return (
         <AnimatePresence>
             {showModal && (

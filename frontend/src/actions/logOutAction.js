@@ -9,8 +9,7 @@ export const logOutAction = () => (dispatch) => {
             },
             withCredentials: true,
         });
-        // const logOutRes = await logOut;
-        // console.log(logOutRes);
+
         dispatch({ type: "LOG_OUT", payload: { user: {} } });
     } catch (err) {
         console.log(err);

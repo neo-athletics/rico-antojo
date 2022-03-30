@@ -5,6 +5,7 @@ import { updateItemQty, removeItem } from "../actions/actions";
 import { Button, Container, Row, Col, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
+import WaveLayout from "./WaveLayout";
 
 const Cart = () => {
     const { cart, userStatus } = useSelector((state) => state);
@@ -16,13 +17,11 @@ const Cart = () => {
     const dispatch = useDispatch();
 
     const handleChange = (e, item) => {
-        console.log(e.target.value);
         dispatch(updateItemQty(item, e.target.value));
     };
     const reducer = (accu, curr) => {
         return accu + curr.price * curr.quantity;
     };
-    console.log(cart, quantity);
 
     const handleClick = () => {
         history.push("/cart");
@@ -127,6 +126,7 @@ const Cart = () => {
                     </Col>
                 </Row>
             </Container>
+            <WaveLayout />
         </>
     );
 };

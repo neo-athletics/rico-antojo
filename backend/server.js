@@ -53,12 +53,7 @@ mongoose
         useUnifiedTopology: true,
     })
     .then((result) => {
-        app.listen(
-            PORT,
-            console.log(
-                `server running in ${process.env.NODE_ENV} mode on port ${PORT}`
-            )
-        );
+        app.listen(PORT);
     })
     .catch((err) => console.log(err));
 
@@ -105,7 +100,6 @@ app.post(
                         username: user.username,
                     });
                 });
-                console.log(req.user, "found it");
             }
         })(req, res, next);
     }
@@ -120,7 +114,6 @@ app.post(
         .isLength({ min: 8 })
         .withMessage("username must be at least 8 chars long")
         .custom((val) => {
-            console.log(val);
             return User.findOne({ username: val }).then((user) => {
                 if (user) {
                     return Promise.reject("Username already in use");
@@ -134,7 +127,6 @@ app.post(
         .notEmpty()
         .trim()
         .custom((val) => {
-            console.log(val);
             return User.findOne({ email: val }).then((user) => {
                 if (user) {
                     return Promise.reject("E-mail already in use");
@@ -159,7 +151,6 @@ app.post(
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
-            console.log(errors);
             return res.status(400).json({ errors: errors.array() });
         }
 
@@ -168,7 +159,6 @@ app.post(
                 console.log(err, "err");
             }
             if (info !== undefined) {
-                console.log(info, "info error");
                 res.status(403).send({ ...info });
             } else {
                 req.logIn(user, (err) => {
@@ -179,19 +169,14 @@ app.post(
         })(req, res, next);
     }
 );
-const myMiddleware = (req, res, next) => {
-    console.log(req.path);
-    console.log(req.user, req.sessionID, "myMiddleware", req.isAuthenticated());
 
-    next();
-};
-app.get("/api/products", myMiddleware, async (req, res) => {
+app.get("/api/products", async (req, res) => {
     Item.find()
         .then((result) => res.send(result))
         .catch((err) => console.log(err));
 });
 
-app.get("/user", myMiddleware, async (req, res) => {
+app.get("/user", async (req, res) => {
     if (req.isAuthenticated()) {
         res.send({ username: req.user.username, isAuthenticated: true });
     } else {
@@ -203,7 +188,6 @@ app.delete("/logout", (req, res) => {
     if (req.session) {
         req.logout();
         req.session.destroy((err) => {
-            console.log("logout");
             res.clearCookie("connect.sid");
             res.send("Logged out");
         });
@@ -286,8 +270,3 @@ app.post("/webhook", express.raw({ type: "application/json" }), (req, res) => {
     }
     res.send();
 });
-
-// app.get("/api/products/:id", (req, res) => {
-//   const product = products.find((item) => item._id === req.params.id);
-//   res.json(product);
-// });

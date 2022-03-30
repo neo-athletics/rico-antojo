@@ -11,7 +11,6 @@ export const logIn = (userInfo, setShow, setUser) => async (dispatch) => {
         const res = await axios.post("http://localhost:8080/login", userInfo, {
             withCredentials: true,
         });
-        console.log(res, "login");
         const user = await res.data;
 
         dispatch({
@@ -24,7 +23,6 @@ export const logIn = (userInfo, setShow, setUser) => async (dispatch) => {
             setUser({ username: "", password: "" });
         }
     } catch (err) {
-        console.log(err);
         //dispatch logIn failure
 
         dispatch({

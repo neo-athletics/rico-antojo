@@ -27,7 +27,7 @@ const sidebar = {
 
 let navVariants = {
     open: {
-        zIndex: 1,
+        zIndex: 2,
     },
     closed: {
         zIndex: 0,

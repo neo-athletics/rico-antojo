@@ -4,17 +4,21 @@ import { Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import Confetti from "react-confetti";
+import WaveLayout from "./WaveLayout";
 
 const Successful = () => {
     return (
-        <div className="successful-payment">
-            <h2>Thank you for your purchase</h2>
-            <p>We are getting it ready!</p>
-            <p>
-                Forgot to order something? Back to{" "}
-                <Link to={"/menu"}>Menu</Link>
-            </p>
-        </div>
+        <>
+            <div className="successful-payment">
+                <h2>Thank you for your purchase</h2>
+                <p>We are getting it ready!</p>
+                <p>
+                    Forgot to order something? Back to{" "}
+                    <Link to={"/menu"}>Menu</Link>
+                </p>
+            </div>
+            <WaveLayout />
+        </>
     );
 };
 

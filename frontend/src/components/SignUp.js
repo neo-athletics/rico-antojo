@@ -7,6 +7,7 @@ import { Link, useHistory } from "react-router-dom";
 import { logIn } from "../actions/logInAction";
 import { motion } from "framer-motion";
 import { variants, item } from "./LogIn";
+import WaveLayout from "./WaveLayout";
 
 const SignUp = ({ setShow }) => {
     const { register, handleSubmit } = useForm();
@@ -16,17 +17,15 @@ const SignUp = ({ setShow }) => {
     const history = useHistory();
 
     if (userState.status === "success") {
-        console.log("did work");
         return <Redirect to={history.goBack() || "/"} />;
     }
 
     const userSignUp = async (data) => {
         try {
-            console.log("sending request");
             const res = await axios.post("http://localhost:8080/signup", data);
-            console.log("request send");
+
             const { message } = await res.data;
-            console.log(res.data, "error has occurred");
+
             setErrors([]);
             //dispatch login if there aren't any errors sent from backend
             dispatch(
@@ -35,9 +34,7 @@ const SignUp = ({ setShow }) => {
                     setShow
                 )
             );
-            console.log(message);
         } catch (err) {
-            console.log(err.response, "sign up error");
             const error = err?.response?.data?.errors;
             setErrors(error);
         }
@@ -48,80 +45,83 @@ const SignUp = ({ setShow }) => {
     };
 
     return (
-        <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={variants}
-            className="signup-container"
-        >
-            <motion.h1 variants={item}>Sign Up</motion.h1>
-            {errors?.length > 0 &&
-                errors?.map((error) => (
-                    <motion.p variants={item} className="danger">
-                        ! {error.msg}
-                    </motion.p>
-                ))}
-            <form
-                onSubmit={handleSubmit(onSubmitForm)}
-                action="/signup"
-                method="post"
+        <>
+            <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={variants}
+                className="signup-container"
             >
-                <motion.label variants={item} htmlFor="username">
-                    username
-                </motion.label>
-                <motion.input
+                <motion.h1 variants={item}>Sign Up</motion.h1>
+                {errors?.length > 0 &&
+                    errors?.map((error) => (
+                        <motion.p variants={item} className="danger">
+                            ! {error.msg}
+                        </motion.p>
+                    ))}
+                <form
+                    onSubmit={handleSubmit(onSubmitForm)}
+                    action="/signup"
+                    method="post"
+                >
+                    <motion.label variants={item} htmlFor="username">
+                        username
+                    </motion.label>
+                    <motion.input
+                        variants={item}
+                        type="text"
+                        id="username"
+                        name="username"
+                        {...register("username", { required: true })}
+                    />
+                    <motion.label variants={item} htmlFor="email">
+                        Email
+                    </motion.label>
+                    <motion.input
+                        variants={item}
+                        type="email"
+                        id="email"
+                        name="email"
+                        {...register("email", { required: true })}
+                    />
+                    <motion.label variants={item} htmlFor="password">
+                        password
+                    </motion.label>
+                    <motion.input
+                        variants={item}
+                        type="password"
+                        id="password"
+                        name="password"
+                        minLength="8"
+                        {...register("password", { required: true })}
+                    />
+                    <motion.label variants={item} htmlFor="password2">
+                        confirm password
+                    </motion.label>
+                    <motion.input
+                        variants={item}
+                        type="password"
+                        id="password2"
+                        name="password2"
+                        minLength="8"
+                        {...register("password2", { required: true })}
+                    />
+                    <motion.input
+                        variants={item}
+                        className="signup-btn"
+                        type="submit"
+                        value="sign up"
+                    />
+                </form>
+                <motion.p
                     variants={item}
-                    type="text"
-                    id="username"
-                    name="username"
-                    {...register("username", { required: true })}
-                />
-                <motion.label variants={item} htmlFor="email">
-                    Email
-                </motion.label>
-                <motion.input
-                    variants={item}
-                    type="email"
-                    id="email"
-                    name="email"
-                    {...register("email", { required: true })}
-                />
-                <motion.label variants={item} htmlFor="password">
-                    password
-                </motion.label>
-                <motion.input
-                    variants={item}
-                    type="password"
-                    id="password"
-                    name="password"
-                    minLength="8"
-                    {...register("password", { required: true })}
-                />
-                <motion.label variants={item} htmlFor="password2">
-                    confirm password
-                </motion.label>
-                <motion.input
-                    variants={item}
-                    type="password"
-                    id="password2"
-                    name="password2"
-                    minLength="8"
-                    {...register("password2", { required: true })}
-                />
-                <motion.input
-                    variants={item}
-                    className="signup-btn"
-                    type="submit"
-                    value="sign up"
-                />
-            </form>
-            <motion.p
-                variants={item}
-                style={{ marginTop: "15px", marginBottom: "0" }}
-            >
-                Have an account? <Link to="/login">Log In</Link>
-            </motion.p>
-        </motion.div>
+                    style={{ marginTop: "15px", marginBottom: "0" }}
+                >
+                    Have an account? <Link to="/login">Log In</Link>
+                </motion.p>
+            </motion.div>
+            <WaveLayout />
+        </>
     );
 };
 

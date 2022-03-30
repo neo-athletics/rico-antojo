@@ -6124,9 +6124,157 @@ readers do not read off random characters that represent icons */
 
 html,
 body {
-  background-color: #f6ece0;
+  background-color: #fbf7f4;
   margin: 0;
   padding: 0;
+}
+
+.home-container {
+  overflow: hidden;
+  z-index: 1;
+}
+
+.home-container::before {
+  content: "";
+  background-image: url("../images/Spindle_1.jpg");
+  display: block;
+  height: 50em;
+  z-index: 0;
+  width: 100%;
+  position: absolute;
+  -webkit-transform: rotateX(180deg);
+          transform: rotateX(180deg);
+  bottom: 0;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  -webkit-clip-path: polygon(100% 0%, 0% 0%, 0% 65%, 1% 64.95%, 2% 64.8%, 3% 64.6%, 4% 64.3%, 5% 63.9%, 6% 63.45%, 7% 62.9%, 8% 62.25%, 9% 61.55%, 10% 60.8%, 11% 59.95%, 12% 59.05%, 13% 58.1%, 14% 57.1%, 15% 56.05%, 16% 55%, 17% 53.9%, 18% 52.8%, 19% 51.65%, 20% 50.5%, 21% 49.35%, 22% 48.2%, 23% 47.05%, 24% 45.9%, 25% 44.8%, 26% 43.75%, 27% 42.75%, 28% 41.75%, 29% 40.8%, 30% 39.9%, 31% 39.1%, 32% 38.35%, 33% 37.65%, 34% 37.05%, 35% 36.5%, 36% 36.05%, 37% 35.65%, 38% 35.35%, 39% 35.15%, 40% 35.05%, 41% 35%, 42% 35.05%, 43% 35.2%, 44% 35.45%, 45% 35.75%, 46% 36.15%, 47% 36.65%, 48% 37.2%, 49% 37.85%, 50% 38.55%, 51% 39.35%, 52% 40.2%, 53% 41.1%, 54% 42.05%, 55% 43.05%, 56% 44.1%, 57% 45.15%, 58% 46.3%, 59% 47.4%, 60% 48.55%, 61% 49.7%, 62% 50.85%, 63% 52%, 64% 53.15%, 65% 54.25%, 66% 55.35%, 67% 56.4%, 68% 57.45%, 69% 58.4%, 70% 59.35%, 71% 60.2%, 72% 61.05%, 73% 61.8%, 74% 62.45%, 75% 63.05%, 76% 63.6%, 77% 64.05%, 78% 64.4%, 79% 64.7%, 80% 64.85%, 81% 65%, 82% 65%, 83% 64.9%, 84% 64.75%, 85% 64.5%, 86% 64.2%, 87% 63.75%, 88% 63.25%, 89% 62.7%, 90% 62.05%, 91% 61.3%, 92% 60.5%, 93% 59.65%, 94% 58.75%, 95% 57.8%, 96% 56.8%, 97% 55.75%, 98% 54.65%, 99% 53.55%, 100% 52.4%);
+          clip-path: polygon(100% 0%, 0% 0%, 0% 65%, 1% 64.95%, 2% 64.8%, 3% 64.6%, 4% 64.3%, 5% 63.9%, 6% 63.45%, 7% 62.9%, 8% 62.25%, 9% 61.55%, 10% 60.8%, 11% 59.95%, 12% 59.05%, 13% 58.1%, 14% 57.1%, 15% 56.05%, 16% 55%, 17% 53.9%, 18% 52.8%, 19% 51.65%, 20% 50.5%, 21% 49.35%, 22% 48.2%, 23% 47.05%, 24% 45.9%, 25% 44.8%, 26% 43.75%, 27% 42.75%, 28% 41.75%, 29% 40.8%, 30% 39.9%, 31% 39.1%, 32% 38.35%, 33% 37.65%, 34% 37.05%, 35% 36.5%, 36% 36.05%, 37% 35.65%, 38% 35.35%, 39% 35.15%, 40% 35.05%, 41% 35%, 42% 35.05%, 43% 35.2%, 44% 35.45%, 45% 35.75%, 46% 36.15%, 47% 36.65%, 48% 37.2%, 49% 37.85%, 50% 38.55%, 51% 39.35%, 52% 40.2%, 53% 41.1%, 54% 42.05%, 55% 43.05%, 56% 44.1%, 57% 45.15%, 58% 46.3%, 59% 47.4%, 60% 48.55%, 61% 49.7%, 62% 50.85%, 63% 52%, 64% 53.15%, 65% 54.25%, 66% 55.35%, 67% 56.4%, 68% 57.45%, 69% 58.4%, 70% 59.35%, 71% 60.2%, 72% 61.05%, 73% 61.8%, 74% 62.45%, 75% 63.05%, 76% 63.6%, 77% 64.05%, 78% 64.4%, 79% 64.7%, 80% 64.85%, 81% 65%, 82% 65%, 83% 64.9%, 84% 64.75%, 85% 64.5%, 86% 64.2%, 87% 63.75%, 88% 63.25%, 89% 62.7%, 90% 62.05%, 91% 61.3%, 92% 60.5%, 93% 59.65%, 94% 58.75%, 95% 57.8%, 96% 56.8%, 97% 55.75%, 98% 54.65%, 99% 53.55%, 100% 52.4%);
+}
+
+.home-container h1,
+.home-container p {
+  position: relative;
+  text-align: center;
+}
+
+.home-container::after {
+  content: "";
+  display: block;
+  background-image: url("../images/ice_cream.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 300px;
+  height: 300px;
+  opacity: 0.8;
+  position: absolute;
+  bottom: 120px;
+  right: 180px;
+  overflow: hidden;
+}
+
+.home-content {
+  margin-top: 90px;
+  z-index: 1;
+  position: relative;
+}
+
+.cloud-container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (minmax(16rem, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  -ms-grid-rows: 1fr;
+      grid-template-rows: 1fr;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  margin-top: 60px;
+  padding-bottom: 100px;
+}
+
+.cloud {
+  width: 16rem;
+  height: 9rem;
+  border: 2px solid #4833be;
+  background-color: #c9dff3;
+  border-radius: 5px;
+  -ms-grid-column-align: center;
+      justify-self: center;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-shadow: 6px 6px 15px 3px rgba(0, 0, 0, 0.26);
+          box-shadow: 6px 6px 15px 3px rgba(0, 0, 0, 0.26);
+}
+
+.menu-btn {
+  display: block;
+  margin: auto;
+  height: 40px;
+  width: 150px;
+  background-image: -webkit-gradient(linear, left bottom, left top, from(#a18cd1), to(#fbc2eb));
+  background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+  border-radius: 5px;
+  border: none;
+  color: #3e2d9c;
+  margin-bottom: 15px;
+  -webkit-transition: 0.2s ease-in-out 0s;
+  transition: 0.2s ease-in-out 0s;
+  -webkit-box-shadow: 3px 3px 11px 1px rgba(0, 0, 0, 0.329);
+          box-shadow: 3px 3px 11px 1px rgba(0, 0, 0, 0.329);
+}
+
+.home-content a {
+  text-decoration: none;
+}
+
+.menu-btn:hover {
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+}
+
+.menu-container {
+  position: relative;
+  z-index: 1;
+}
+
+.svg-container {
+  position: relative;
+}
+
+.background-wave {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 0;
+  width: 100%;
+}
+
+.top-layer-wave {
+  top: 0;
+  right: 0;
+  z-index: 0;
+  width: 100%;
+  position: absolute;
+}
+
+.content-container,
+.about-container,
+.login-container,
+.signup-container {
+  position: relative;
+  z-index: 1;
 }
 
 .card {
@@ -6199,6 +6347,11 @@ body {
   font-size: 12px;
 }
 
+.checkout-container {
+  position: relative;
+  z-index: 1;
+}
+
 .dropdown:hover .dropdown-menu {
   display: block;
 }
@@ -6245,7 +6398,9 @@ body {
 }
 
 .brand-name {
+  position: relative;
   margin-left: 30px;
+  z-index: 1;
 }
 
 .login-container,
@@ -6333,6 +6488,8 @@ input[type="submit"].signup-btn:hover {
 }
 
 .successful-payment {
+  position: relative;
+  z-index: 1;
   text-align: center;
   margin-top: 80px;
 }
@@ -6397,6 +6554,21 @@ input[type="submit"].signup-btn:hover {
   background-color: rgba(136, 132, 255, 0.8);
 }
 
+@media only screen and (max-width: 1480px) {
+  .home-container::before {
+    height: 35em;
+  }
+  .home-container::after {
+    width: 200px;
+    height: 200px;
+    bottom: 100px;
+    right: 100px;
+  }
+  .home-content {
+    margin-top: 20px;
+  }
+}
+
 @media only screen and (max-width: 1200px) {
   .mobile-button {
     outline: none;
@@ -6434,6 +6606,7 @@ input[type="submit"].signup-btn:hover {
     bottom: 0;
     width: 300px;
     background: #fff;
+    height: 100%;
   }
   nav {
     position: absolute;
@@ -6484,6 +6657,22 @@ input[type="submit"].signup-btn:hover {
             transform-origin: center;
     -webkit-transition: 0.2s ease-in;
     transition: 0.2s ease-in;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  .cloud-container {
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+    row-gap: 20px;
+  }
+  .cloud {
+    width: 13rem;
+    height: 7rem;
+  }
+  .home-container::after {
+    right: 20px;
+    bottom: 60px;
   }
 }
 

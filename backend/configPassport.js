@@ -11,7 +11,6 @@ const passportConfig = (User, app) => {
             password,
             done
         ) {
-            console.log(req.body.email, "email here");
             const { email } = req.body;
             User.findOne({ username }, async function (err, user) {
                 if (err) return done(err);
@@ -59,7 +58,6 @@ const passportConfig = (User, app) => {
                                 return done(null, false, {
                                     message: "Incorrect password",
                                 });
-                            console.log(user, "strategy");
                             return done(null, user);
                         }
                     );
@@ -69,7 +67,6 @@ const passportConfig = (User, app) => {
     );
 
     passport.serializeUser(function (user, done) {
-        console.log(user.id, "accessing");
         done(null, user.id);
     });
 

@@ -1,6 +1,7 @@
 import React from "react";
-import { Card, Col, Row } from "react-bootstrap";
+import { Card, Col } from "react-bootstrap";
 import { SkeletonBlock, SkeletonText } from "skeleton-elements/react";
+import "skeleton-elements/css";
 
 const SkeletonCard = () => {
     return (

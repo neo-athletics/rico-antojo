@@ -41,7 +41,6 @@ const ItemForm = ({
     const onSubmit = (data) => {
         purchaseItem(selectedItem, { ...data, id: uuidv4() });
         setShowToast(true);
-        console.log(cart, numOfScoops, flavors);
     };
 
     return (
@@ -432,7 +431,6 @@ const ItemForm = ({
 };
 
 const mapStateToProps = (state, ownProps) => {
-    console.log(state.cart, ownProps);
     return {
         selectedItem: state.selectedItem,
         cart: state.cart,

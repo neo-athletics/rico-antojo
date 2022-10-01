@@ -22,7 +22,10 @@ const SignUp = ({ setShow }) => {
 
     const userSignUp = async (data) => {
         try {
-            const res = await axios.post("http://localhost:8080/signup", data);
+            const res = await axios.post(
+                `${process.env.REACT_APP_SERVER_END_POINT}/signup`,
+                data
+            );
 
             const { message } = await res.data;
 

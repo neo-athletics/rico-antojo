@@ -13,7 +13,9 @@ const Menu = ({ categories, setShowModal }) => {
     useEffect(() => {
         const fetchItems = async () => {
             try {
-                const { data } = await axios.get("/api/products");
+                const { data } = await axios.get(
+                    `${process.env.REACT_APP_SERVER_END_POINT}/api/products`
+                );
                 setItems(data);
             } catch (e) {
                 setMessage("Unable to retrieve items at this time.");

@@ -6129,6 +6129,21 @@ body {
   padding: 0;
 }
 
+.top-layer {
+  position: relative;
+}
+
+.top-layer-wave {
+  top: 0;
+  right: 0;
+  z-index: 0;
+  width: 100%;
+  position: absolute;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
 .home-container {
   overflow: hidden;
   z-index: 1;
@@ -6225,7 +6240,6 @@ body {
   background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
   border-radius: 5px;
   border: none;
-  color: #3e2d9c;
   margin-bottom: 15px;
   -webkit-transition: 0.2s ease-in-out 0s;
   transition: 0.2s ease-in-out 0s;
@@ -6235,6 +6249,7 @@ body {
 
 .home-content a {
   text-decoration: none;
+  color: #3e2d9c;
 }
 
 .menu-btn:hover {
@@ -6261,12 +6276,12 @@ body {
   width: 100%;
 }
 
-.top-layer-wave {
-  top: 0;
-  right: 0;
-  z-index: 0;
-  width: 100%;
+.bottom-wave {
+  overflow: hidden;
+  display: block;
   position: absolute;
+  bottom: 0px;
+  right: 0px;
 }
 
 .content-container,
@@ -6356,6 +6371,11 @@ body {
   display: block;
 }
 
+.price-cut {
+  text-decoration: line-through;
+  color: rgba(31, 31, 31, 0.459);
+}
+
 .sideCart {
   width: 350px;
 }
@@ -6393,14 +6413,23 @@ body {
   margin-right: 10px;
 }
 
+nav ul li a {
+  color: #1737e9;
+}
+
 .desktop-nav ul li a:hover {
   text-decoration: none;
+  color: rgba(23, 55, 233, 0.75);
 }
 
 .brand-name {
   position: relative;
+  font-size: 22px;
   margin-left: 30px;
+  font-weight: 500;
   z-index: 1;
+  color: #1737e9;
+  font-family: "Montserrat Alternates", sans-serif;
 }
 
 .login-container,

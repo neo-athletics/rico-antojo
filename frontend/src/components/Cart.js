@@ -117,11 +117,18 @@ const Cart = () => {
                     >
                         <span>
                             Total $
-                            {userStatus.status === "success"
-                                ? discount
-                                : parseFloat(cart.reduce(reducer, 0.0)).toFixed(
-                                      2
-                                  )}
+                            {userStatus.status === "success" ? (
+                                <>
+                                    {discount}{" "}
+                                    <span className="price-cut">
+                                        {parseFloat(
+                                            cart.reduce(reducer, 0.0)
+                                        ).toFixed(2)}
+                                    </span>
+                                </>
+                            ) : (
+                                parseFloat(cart.reduce(reducer, 0.0)).toFixed(2)
+                            )}
                         </span>
                     </Col>
                 </Row>

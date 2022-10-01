@@ -33,7 +33,8 @@ const CardSection = () => {
         const { error } = await stripe.confirmPayment({
             elements,
             confirmParams: {
-                return_url: "http://localhost:3000/successful_payment",
+                return_url:
+                    "https://rico-antojo.netlify.app/successful_payment",
             },
         });
 

@@ -12,7 +12,6 @@ import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import MongoStore from "connect-mongo";
 import passportConfig from "./configPassport.js";
-import { path } from "express/lib/application";
 
 const app = express();
 
@@ -25,20 +24,11 @@ const endpointSecret = process.env.END_POINT_SECRET;
 
 const stripeAPI = Stripe(process.env.STRIPE_API_KEY);
 
-// Step 1:
-app.use(express.static(path.resolve(__dirname, "./frontend/build")));
-// Step 2:
-app.get("*", function (request, response) {
-    response.sendFile(
-        path.resolve(__dirname, "./frontend/build", "index.html")
-    );
-});
-
 const PORT = process.env.PORT || 5000;
 
 app.use(
     cors({
-        origin: "http://localhost:3000",
+        origin: true,
         credentials: true,
     })
 );

@@ -14,17 +14,24 @@ const SideCart = () => {
     ).toFixed(2);
 
     return (
-        <div className="dropdown-menu sideCart" style={{ left: "-107px" }}>
+        <div className="dropdown-menu sideCart" style={{ left: "-150px" }}>
             <Container>
                 <Col>
                     <Row>
                         <p>
                             Total $
-                            {userStatus.status === "success"
-                                ? discount
-                                : parseFloat(cart.reduce(reducer, 0.0)).toFixed(
-                                      2
-                                  )}
+                            {userStatus.status === "success" ? (
+                                <>
+                                    {discount}{" "}
+                                    <span className="price-cut">
+                                        {parseFloat(
+                                            cart.reduce(reducer, 0.0)
+                                        ).toFixed(2)}
+                                    </span>
+                                </>
+                            ) : (
+                                parseFloat(cart.reduce(reducer, 0.0)).toFixed(2)
+                            )}
                         </p>
                     </Row>
 
@@ -46,12 +53,12 @@ const SideCart = () => {
                                         <p className="itemQty">
                                             qty. {item.quantity}
                                         </p>
-                                        <p className="itemTotalPrice">
+                                        {/* <p className="itemTotalPrice">
                                             subtotal $
                                             {parseFloat(
                                                 item.price * item.quantity
                                             ).toFixed(2)}
-                                        </p>
+                                        </p> */}
                                     </Row>
                                 </Col>
                             </Row>

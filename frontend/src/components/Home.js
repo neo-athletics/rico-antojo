@@ -13,9 +13,10 @@ const Home = () => {
                     <div className="cloud">Snacks on the Go</div>
                     <div className="cloud">Satisfy those taste buds</div>
                 </div>
-                <Link to={"/menu"}>
-                    <button className="menu-btn">View Menu</button>
-                </Link>
+
+                <button className="menu-btn">
+                    <Link to={"/menu"}>View Menu </Link>
+                </button>
             </div>
         </div>
     );

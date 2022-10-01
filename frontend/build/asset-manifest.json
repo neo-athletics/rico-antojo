@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.ac899dec.css",
-    "main.js": "/static/js/main.80e4cfdd.js",
+    "main.css": "/static/css/main.a93fc2ca.css",
+    "main.js": "/static/js/main.1629098c.js",
     "static/media/fa-solid-900.svg": "/static/media/fa-solid-900.0454203f26b33fc02e2b.svg",
     "static/media/Spindle_1.jpg": "/static/media/Spindle_1.2287998aada4127c69b6.jpg",
     "static/media/fa-solid-900.eot": "/static/media/fa-solid-900.6606667d9800a27eb8b5.eot",
@@ -10,11 +10,11 @@
     "static/media/fa-solid-900.woff2": "/static/media/fa-solid-900.3eb06c702e27fb110194.woff2",
     "static/media/ice_cream.svg": "/static/media/ice_cream.0571341efcc332878a9b.svg",
     "index.html": "/index.html",
-    "main.ac899dec.css.map": "/static/css/main.ac899dec.css.map",
-    "main.80e4cfdd.js.map": "/static/js/main.80e4cfdd.js.map"
+    "main.a93fc2ca.css.map": "/static/css/main.a93fc2ca.css.map",
+    "main.1629098c.js.map": "/static/js/main.1629098c.js.map"
   },
   "entrypoints": [
-    "static/css/main.ac899dec.css",
-    "static/js/main.80e4cfdd.js"
+    "static/css/main.a93fc2ca.css",
+    "static/js/main.1629098c.js"
   ]
 }

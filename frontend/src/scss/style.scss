@@ -7,6 +7,19 @@ body {
     margin: 0;
     padding: 0;
 }
+.top-layer {
+    position: relative;
+}
+.top-layer-wave {
+    top: 0;
+    right: 0;
+    z-index: 0;
+    width: 100%;
+    position: absolute;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
 .home-container {
     overflow: hidden;
     z-index: 1;
@@ -186,13 +199,13 @@ body {
     background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
     border-radius: 5px;
     border: none;
-    color: rgb(62, 45, 156);
     margin-bottom: 15px;
     transition: 0.2s ease-in-out 0s;
     box-shadow: 3px 3px 11px 1px rgba(0, 0, 0, 0.329);
 }
 .home-content a {
     text-decoration: none;
+    color: rgb(62, 45, 156);
 }
 .menu-btn:hover {
     transform: scale(1.05);
@@ -214,13 +227,15 @@ body {
     z-index: 0;
     width: 100%;
 }
-.top-layer-wave {
-    top: 0;
-    right: 0;
-    z-index: 0;
-    width: 100%;
+
+.bottom-wave {
+    overflow: hidden;
+    display: block;
     position: absolute;
+    bottom: 0px;
+    right: 0px;
 }
+
 .content-container,
 .about-container,
 .login-container,
@@ -228,7 +243,6 @@ body {
     position: relative;
     z-index: 1;
 }
-//
 
 .card {
     box-shadow: 0px 1px 10px 5px rgba(0, 0, 0, 0.2);
@@ -295,7 +309,10 @@ body {
 .dropdown:hover .dropdown-menu {
     display: block;
 }
-
+.price-cut {
+    text-decoration: line-through;
+    color: rgba(31, 31, 31, 0.459);
+}
 .sideCart {
     width: 350px;
 }
@@ -326,13 +343,21 @@ body {
     display: inline;
     margin-right: 10px;
 }
+nav ul li a {
+    color: rgb(23, 55, 233);
+}
 .desktop-nav ul li a:hover {
     text-decoration: none;
+    color: rgba(23, 55, 233, 0.75);
 }
 .brand-name {
     position: relative;
+    font-size: 22px;
     margin-left: 30px;
+    font-weight: 500;
     z-index: 1;
+    color: rgb(23, 55, 233);
+    font-family: "Montserrat Alternates", sans-serif;
 }
 .login-container,
 .signup-container {

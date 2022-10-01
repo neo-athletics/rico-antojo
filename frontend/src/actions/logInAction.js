@@ -8,9 +8,13 @@ export const logIn = (userInfo, setShow, setUser) => async (dispatch) => {
     try {
         //dispatch logIn success
 
-        const res = await axios.post("http://localhost:8080/login", userInfo, {
-            withCredentials: true,
-        });
+        const res = await axios.post(
+            `${process.env.REACT_APP_SERVER_END_POINT}/login`,
+            userInfo,
+            {
+                withCredentials: true,
+            }
+        );
         const user = await res.data;
 
         dispatch({

@@ -186,10 +186,14 @@ app.get("/user", async (req, res) => {
 
 app.delete("/logout", (req, res) => {
     if (req.session) {
-        req.logout();
-        req.session.destroy((err) => {
-            res.clearCookie("connect.sid");
-            res.send("Logged out");
+        req.logout((err) => {
+            if (err) {
+                res.send(err);
+            }
+            req.session.destroy((err) => {
+                res.clearCookie("connect.sid");
+                res.send("Logged out");
+            });
         });
     } else {
         res.end();

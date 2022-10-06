@@ -53,8 +53,9 @@ mongoose
     })
     .then((result) => {
         app.listen(PORT);
+        console.log("listening on port " + PORT);
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.log(err, "could not connect to database!!!"));
 
 app.use(
     session({

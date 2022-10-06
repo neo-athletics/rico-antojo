@@ -17,7 +17,9 @@ const Menu = ({ categories, setShowModal }) => {
                     `${process.env.REACT_APP_SERVER_END_POINT}/api/products`
                 );
                 setItems(data);
+                console.log(data);
             } catch (e) {
+                console.log({ ...e });
                 setMessage("Unable to retrieve items at this time.");
             }
         };

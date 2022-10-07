@@ -1,16 +1,16 @@
-import express from "express.js";
-import dotenv from "dotenv.js";
-import session from "express-session.js";
-import passport from "passport.js";
-import mongoose from "mongoose.js";
+import express from "express";
+import dotenv from "dotenv";
+import session from "express-session";
+import passport from "passport";
+import mongoose from "mongoose";
 import User from "./models/user.js";
 import Item from "./models/item.js";
-import { body, validationResult } from "express-validator.js";
-import cors from "cors.js";
-import Stripe from "stripe.js";
-import helmet from "helmet.js";
-import cookieParser from "cookie-parser.js";
-import MongoStore from "connect-mongo.js";
+import { body, validationResult } from "express-validator";
+import cors from "cors";
+import Stripe from "stripe";
+import helmet from "helmet";
+import cookieParser from "cookie-parser";
+import MongoStore from "connect-mongo";
 import passportConfig from "./configPassport.js";
 
 const app = express();

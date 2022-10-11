@@ -79,7 +79,9 @@ passportConfig(User, app);
 
 //check authentication
 
-app.get("/", (req, res) => {});
+app.get("/", (req, res) => {
+    res.send({ message: "Route not found please use api/products endpoint" });
+});
 
 app.post(
     "/login",

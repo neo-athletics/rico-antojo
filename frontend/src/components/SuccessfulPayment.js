@@ -59,7 +59,7 @@ const SuccessfulPayment = () => {
                     break;
             }
         });
-    }, [stripe]);
+    }, [stripe, dispatch]);
     return (
         <>
             <div>

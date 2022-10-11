@@ -1,6 +1,6 @@
 {
     "name": "rico-antojo",
-    "proxy": "http://localhost:3000/",
+    "proxy": "https://rico-antojo.netlify.app/",
     "version": "0.1.0",
     "private": true,
     "dependencies": {

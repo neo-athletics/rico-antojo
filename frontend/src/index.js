@@ -14,11 +14,7 @@ const persistentData = loadState();
 const store = createStore(
     reducers,
     persistentData,
-    compose(
-        applyMiddleware(thunkMiddleware),
-        window.__REDUX_DEVTOOLS_EXTENSION__ &&
-            window.__REDUX_DEVTOOLS_EXTENSION__()
-    )
+    compose(applyMiddleware(thunkMiddleware))
 );
 function getUser() {
     const { userStatus } = store.getState();

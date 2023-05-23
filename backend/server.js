@@ -45,12 +45,15 @@ app.use((req, res, next) => {
 app.use(express.urlencoded({ extended: false }));
 
 mongoose
-    .connect(process.env.URI, {
-        useFindAndModify: false,
-        useCreateIndex: true,
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    })
+    .connect(
+        "mongodb+srv://neo-ranger:E6kO3QvtF2Evdg3g@neoxathletics.amxgl.mongodb.net/e-commerce?retryWrites=true&w=majority",
+        {
+            useFindAndModify: false,
+            useCreateIndex: true,
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        }
+    )
     .then((result) => {
         app.listen(PORT);
         console.log("listening on port " + PORT);

@@ -2,7 +2,7 @@
     "name": "rico-antojo",
     "version": "1.0.0",
     "description": "Rico Antojo is an e-commerce website that offers a variety of snacks. I got the idea for the site from a local snack shop around the neighborhood. I realize they did not have a website of their own and were using a different platform to host their store items. So people can see what they offer.",
-    "start": "./frontend/src/index.js",
+    "main": "./frontend/src/index.js",
     "dependencies": {
         "abbrev": "^1.1.1",
         "accepts": "^1.3.8",

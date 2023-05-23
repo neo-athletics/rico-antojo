@@ -200,6 +200,7 @@
         "yargs-parser": "^20.2.9"
     },
     "scripts": {
+        "start": "./frontend/src/index.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {

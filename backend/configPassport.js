@@ -5,63 +5,70 @@ import passport from "passport";
 const passportConfig = (User, app) => {
     passport.use(
         "register",
-        new LocalStrategy({ passReqToCallback: true }, function (
+        new LocalStrategy({ passReqToCallback: true }, async function (
             req,
             username,
             password,
             done
         ) {
             const { email } = req.body;
-            User.findOne({ username }, async function (err, user) {
-                if (err) return done(err);
-                if (user)
-                    return done(null, false, {
-                        message: "Username already exist",
-                    });
+            const userFound = await User.findOne({ username });
 
-                const salt = await bcrypt.genSalt(10);
-                const hashPass = await bcrypt.hash(password, salt);
-
-                const userCredentials = new User({
-                    username,
-                    email,
-                    password: hashPass,
+            if (userFound != null) {
+                return done(null, false, {
+                    message: "Username already exist",
                 });
+            }
 
-                userCredentials
-                    .save()
-                    .then((result) => {
-                        return done(null, userCredentials);
-                    })
-                    .catch((err) => console.log(err));
+            const salt = await bcrypt.genSalt(10);
+            const hashPass = await bcrypt.hash(password, salt);
+
+            const userCredentials = new User({
+                username,
+                email,
+                password: hashPass,
             });
+
+            userCredentials
+                .save()
+                .then((result) => {
+                    return done(null, userCredentials);
+                })
+                .catch((err) => console.log(err));
         })
     );
 
     passport.use(
         new LocalStrategy(
             { usernameField: "username", passwordField: "password" },
-            function (username, password, done) {
-                User.findOne({ username }, function (err, user) {
-                    if (err) return done(err);
-                    if (!user)
+            async function (username, password, done) {
+                const foundUser = await User.findOne({ username });
+                console.log(foundUser, "finding");
+
+                try {
+                    if (foundUser != null) {
+                        //continue with user authentication
+                        bcrypt.compare(
+                            password,
+                            foundUser.password,
+                            function (err, res) {
+                                if (err) return done(err);
+                                if (!res)
+                                    return done(null, false, {
+                                        message: "Incorrect password",
+                                    });
+                                return done(null, foundUser);
+                            }
+                        );
+                    } else {
+                        //send error
                         return done(null, false, {
                             message: "Incorrect username",
                         });
-
-                    bcrypt.compare(
-                        password,
-                        user.password,
-                        function (err, res) {
-                            if (err) return done(err);
-                            if (!res)
-                                return done(null, false, {
-                                    message: "Incorrect password",
-                                });
-                            return done(null, user);
-                        }
-                    );
-                });
+                    }
+                } catch (e) {
+                    console.log(e);
+                }
             }
         )
     );
@@ -70,11 +77,14 @@ const passportConfig = (User, app) => {
         done(null, user.id);
     });
 
-    passport.deserializeUser(function (id, done) {
-        User.findById(id, function (err, user) {
-            return done(err, user);
-        });
+    passport.deserializeUser(async function (id, done) {
+        const userFound = await User.findById(id);
+        if (userFound != null) {
+            let err = false;
+            return done(err, userFound);
+        }
     });
+
     //passport.js
     app.use(passport.initialize());
     app.use(passport.session());

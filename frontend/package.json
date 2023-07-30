@@ -1,6 +1,6 @@
 {
     "name": "rico-antojo",
-    "proxy": "http://localhost:3000",
+    "proxy": "http://localhost:3000/",
     "version": "0.1.0",
     "private": true,
     "dependencies": {
@@ -39,9 +39,7 @@
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
-        "eject": "react-scripts eject",
-        "server": "node ../backend/server",
-        "dev": "concurrently \"npm run server\" \"npm run start\""
+        "eject": "react-scripts eject"
     },
     "eslintConfig": {
         "extends": [

@@ -29,17 +29,17 @@
 }
 
 .fa-lg {
-  font-size: 1.33333em;
+  font-size: 1.3333333333em;
   line-height: 0.75em;
-  vertical-align: -.0667em;
+  vertical-align: -0.0667em;
 }
 
 .fa-xs {
-  font-size: .75em;
+  font-size: 0.75em;
 }
 
 .fa-sm {
-  font-size: .875em;
+  font-size: 0.875em;
 }
 
 .fa-1x {
@@ -92,7 +92,6 @@
   margin-left: 2.5em;
   padding-left: 0;
 }
-
 .fa-ul > li {
   position: relative;
 }
@@ -107,8 +106,8 @@
 
 .fa-border {
   border: solid 0.08em #eee;
-  border-radius: .1em;
-  padding: .2em .25em .15em;
+  border-radius: 0.1em;
+  padding: 0.2em 0.25em 0.15em;
 }
 
 .fa-pull-left {
@@ -125,84 +124,61 @@
 .far.fa-pull-left,
 .fal.fa-pull-left,
 .fab.fa-pull-left {
-  margin-right: .3em;
+  margin-right: 0.3em;
 }
-
 .fa.fa-pull-right,
 .fas.fa-pull-right,
 .fa-pull-right.removeItem:after,
 .far.fa-pull-right,
 .fal.fa-pull-right,
 .fab.fa-pull-right {
-  margin-left: .3em;
+  margin-left: 0.3em;
 }
 
 .fa-spin {
-  -webkit-animation: fa-spin 2s infinite linear;
-          animation: fa-spin 2s infinite linear;
+  animation: fa-spin 2s infinite linear;
 }
 
 .fa-pulse {
-  -webkit-animation: fa-spin 1s infinite steps(8);
-          animation: fa-spin 1s infinite steps(8);
-}
-
-@-webkit-keyframes fa-spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
+  animation: fa-spin 1s infinite steps(8);
 }
 
 @keyframes fa-spin {
   0% {
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
+    transform: rotate(0deg);
   }
   100% {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
-
 .fa-rotate-90 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
-  -webkit-transform: rotate(90deg);
-          transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 
 .fa-rotate-180 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
-  -webkit-transform: rotate(180deg);
-          transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 .fa-rotate-270 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
-  -webkit-transform: rotate(270deg);
-          transform: rotate(270deg);
+  transform: rotate(270deg);
 }
 
 .fa-flip-horizontal {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)";
-  -webkit-transform: scale(-1, 1);
-          transform: scale(-1, 1);
+  transform: scale(-1, 1);
 }
 
 .fa-flip-vertical {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
-  -webkit-transform: scale(1, -1);
-          transform: scale(1, -1);
+  transform: scale(1, -1);
 }
 
 .fa-flip-both, .fa-flip-horizontal.fa-flip-vertical {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
-  -webkit-transform: scale(-1, -1);
-          transform: scale(-1, -1);
+  transform: scale(-1, -1);
 }
 
 :root .fa-rotate-90,
@@ -211,8 +187,7 @@
 :root .fa-flip-horizontal,
 :root .fa-flip-vertical,
 :root .fa-flip-both {
-  -webkit-filter: none;
-          filter: none;
+  filter: none;
 }
 
 .fa-stack {
@@ -6107,18 +6082,17 @@ readers do not read off random characters that represent icons */
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 @font-face {
-  font-family: 'Font Awesome 5 Free';
+  font-family: "Font Awesome 5 Free";
   font-style: normal;
   font-weight: 900;
   font-display: block;
   src: url("./webfonts/fa-solid-900.eot");
   src: url("./webfonts/fa-solid-900.eot?#iefix") format("embedded-opentype"), url("./webfonts/fa-solid-900.woff2") format("woff2"), url("./webfonts/fa-solid-900.woff") format("woff"), url("./webfonts/fa-solid-900.ttf") format("truetype"), url("./webfonts/fa-solid-900.svg#fontawesome") format("svg");
 }
-
 .fa,
 .fas,
 .removeItem:after {
-  font-family: 'Font Awesome 5 Free';
+  font-family: "Font Awesome 5 Free";
   font-weight: 900;
 }
 
@@ -6157,8 +6131,7 @@ body {
   z-index: 0;
   width: 100%;
   position: absolute;
-  -webkit-transform: rotateX(180deg);
-          transform: rotateX(180deg);
+  transform: rotateX(180deg);
   bottom: 0;
   overflow: hidden;
   margin: 0;
@@ -6197,17 +6170,11 @@ body {
 }
 
 .cloud-container {
-  display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (minmax(16rem, 1fr))[auto-fit];
-      grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-  -ms-grid-rows: 1fr;
-      grid-template-rows: 1fr;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -ms-flex-line-pack: center;
-      align-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  grid-template-rows: 1fr;
+  justify-content: center;
+  align-content: center;
   margin-top: 60px;
   padding-bottom: 100px;
 }
@@ -6215,20 +6182,14 @@ body {
 .cloud {
   width: 16rem;
   height: 9rem;
-  border: 2px solid #4833be;
-  background-color: #c9dff3;
+  border: 2px solid rgb(72, 51, 190);
+  background-color: rgb(201, 223, 243);
   border-radius: 5px;
-  -ms-grid-column-align: center;
-      justify-self: center;
-  display: -ms-grid;
+  justify-self: center;
   display: grid;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -ms-flex-line-pack: center;
-      align-content: center;
-  -webkit-box-shadow: 6px 6px 15px 3px rgba(0, 0, 0, 0.26);
-          box-shadow: 6px 6px 15px 3px rgba(0, 0, 0, 0.26);
+  justify-content: center;
+  align-content: center;
+  box-shadow: 6px 6px 15px 3px rgba(0, 0, 0, 0.26);
 }
 
 .menu-btn {
@@ -6236,25 +6197,25 @@ body {
   margin: auto;
   height: 40px;
   width: 150px;
-  background-image: -webkit-gradient(linear, left bottom, left top, from(#a18cd1), to(#fbc2eb));
   background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
   border-radius: 5px;
   border: none;
   margin-bottom: 15px;
-  -webkit-transition: 0.2s ease-in-out 0s;
   transition: 0.2s ease-in-out 0s;
-  -webkit-box-shadow: 3px 3px 11px 1px rgba(0, 0, 0, 0.329);
-          box-shadow: 3px 3px 11px 1px rgba(0, 0, 0, 0.329);
+  box-shadow: 3px 3px 11px 1px rgba(0, 0, 0, 0.329);
 }
 
 .home-content a {
+  display: grid;
   text-decoration: none;
-  color: #3e2d9c;
+  color: rgb(62, 45, 156);
+  height: 40px;
+  width: 150px;
+  align-items: center;
 }
 
 .menu-btn:hover {
-  -webkit-transform: scale(1.05);
-          transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 .menu-container {
@@ -6293,8 +6254,7 @@ body {
 }
 
 .card {
-  -webkit-box-shadow: 0px 1px 10px 5px rgba(0, 0, 0, 0.2);
-          box-shadow: 0px 1px 10px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 10px 5px rgba(0, 0, 0, 0.2);
 }
 
 .itemList li {
@@ -6342,7 +6302,6 @@ body {
 .cart {
   position: relative;
 }
-
 .cart .itemCount {
   display: inline-block;
   position: relative;
@@ -6351,10 +6310,9 @@ body {
   height: 20px;
   width: 20px;
   border-radius: 50%;
-  background-color: #3b0ea5;
+  background-color: rgb(59, 14, 165);
   text-align: center;
 }
-
 .cart .itemCount span {
   position: relative;
   bottom: 3px;
@@ -6392,8 +6350,7 @@ body {
   margin-top: 20px;
   margin-bottom: 20px;
   padding: 6px;
-  -webkit-box-shadow: 0px 0px 3px 0px black;
-          box-shadow: 0px 0px 3px 0px black;
+  box-shadow: 0px 0px 3px 0px black;
   border-radius: 4px;
 }
 
@@ -6414,7 +6371,7 @@ body {
 }
 
 nav ul li a {
-  color: #1737e9;
+  color: rgb(23, 55, 233);
 }
 
 .desktop-nav ul li a:hover {
@@ -6428,7 +6385,7 @@ nav ul li a {
   margin-left: 30px;
   font-weight: 500;
   z-index: 1;
-  color: #1737e9;
+  color: rgb(23, 55, 233);
   font-family: "Montserrat Alternates", sans-serif;
 }
 
@@ -6442,12 +6399,9 @@ nav ul li a {
 }
 
 .signup-container form {
-  display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr;
-      grid-template-columns: 1fr;
-  -ms-grid-rows: (1fr)[8];
-      grid-template-rows: repeat(8, 1fr);
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(8, 1fr);
   row-gap: 6px;
 }
 
@@ -6458,12 +6412,9 @@ nav ul li a {
 }
 
 .login-container form {
-  display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr;
-      grid-template-columns: 1fr;
-  -ms-grid-rows: 1fr 1fr 1fr 1fr;
-      grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
   row-gap: 8px;
 }
 
@@ -6473,29 +6424,26 @@ nav ul li a {
   color: #5d576b;
   border-radius: 6px;
   border: none;
-  -webkit-box-shadow: 2px 5px 10px 2px rgba(0, 0, 0, 0.2);
-          box-shadow: 2px 5px 10px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 5px 10px 2px rgba(0, 0, 0, 0.2);
 }
 
-input[type="submit"].login-btn,
-input[type="submit"].signup-btn {
+input[type=submit].login-btn,
+input[type=submit].signup-btn {
   margin-top: 15px;
-  background-color: #8884ff;
-  color: whitesmoke;
+  background-color: #7b77fb;
+  color: #fff;
   height: 34px;
-  -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
 
-input[type="submit"].login-btn:hover,
-input[type="submit"].signup-btn:hover {
-  -webkit-transform: scale(1.02);
-          transform: scale(1.02);
-  background-color: rgba(136, 132, 255, 0.8);
+input[type=submit].login-btn:hover,
+input[type=submit].signup-btn:hover {
+  transform: scale(1.02);
+  background-color: rgba(123, 119, 251, 0.8941176471);
 }
 
 .danger {
-  color: #f34e4e;
+  color: rgb(243, 78, 78);
   font-size: 15px;
   font-weight: 300;
 }
@@ -6522,7 +6470,6 @@ input[type="submit"].signup-btn:hover {
   text-align: center;
   margin-top: 80px;
 }
-
 .successful-payment h2 {
   color: #2dc82d;
 }
@@ -6535,7 +6482,7 @@ input[type="submit"].signup-btn:hover {
 }
 
 .checkout-details {
-  background-color: #f695f69c;
+  background-color: rgba(246, 149, 246, 0.6117647059);
   padding: 30px 40px;
   margin: 10px 0 40px;
   border-radius: 5px;
@@ -6569,17 +6516,14 @@ input[type="submit"].signup-btn:hover {
   height: 32px;
   border-radius: 3px;
   border: none;
-  -webkit-box-shadow: 2px 5px 10px 2px rgba(0, 0, 0, 0.2);
-          box-shadow: 2px 5px 10px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 5px 10px 2px rgba(0, 0, 0, 0.2);
   background-color: #8884ff;
   color: whitesmoke;
-  -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
 
 .payment-btn:hover {
-  -webkit-transform: scale(1.02);
-          transform: scale(1.02);
+  transform: scale(1.02);
   background-color: rgba(136, 132, 255, 0.8);
 }
 
@@ -6597,7 +6541,6 @@ input[type="submit"].signup-btn:hover {
     margin-top: 20px;
   }
 }
-
 @media only screen and (max-width: 1200px) {
   .mobile-button {
     outline: none;
@@ -6624,8 +6567,7 @@ input[type="submit"].signup-btn:hover {
     height: 50px;
     border-radius: 50%;
     background: transparent;
-    -webkit-box-shadow: 0px 1px 10px 10px rgba(0, 0, 0, 0.2);
-            box-shadow: 0px 1px 10px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 1px 10px 10px rgba(0, 0, 0, 0.2);
     z-index: -1;
   }
   .background {
@@ -6653,12 +6595,8 @@ input[type="submit"].signup-btn:hover {
   nav li {
     list-style: none;
     margin-bottom: 20px;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    align-items: center;
     cursor: pointer;
   }
   nav li a:hover {
@@ -6679,20 +6617,15 @@ input[type="submit"].signup-btn:hover {
   nav li:hover:before {
     width: 2px;
     visibility: visible;
-    -webkit-transform: scaleY(8);
-            transform: scaleY(8);
-    background-color: #179ce9;
-    -webkit-transform-origin: center;
-            transform-origin: center;
-    -webkit-transition: 0.2s ease-in;
+    transform: scaleY(8);
+    background-color: rgb(23, 156, 233);
+    transform-origin: center;
     transition: 0.2s ease-in;
   }
 }
-
 @media only screen and (max-width: 850px) {
   .cloud-container {
-    -ms-grid-columns: 1fr;
-        grid-template-columns: 1fr;
+    grid-template-columns: 1fr;
     row-gap: 20px;
   }
   .cloud {
@@ -6704,10 +6637,8 @@ input[type="submit"].signup-btn:hover {
     bottom: 60px;
   }
 }
-
 @media only screen and (max-width: 575px) {
   .checkout-container {
     margin-left: 6px;
   }
-}
-/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=style.css.map */

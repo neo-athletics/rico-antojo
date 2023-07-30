@@ -204,8 +204,12 @@ body {
     box-shadow: 3px 3px 11px 1px rgba(0, 0, 0, 0.329);
 }
 .home-content a {
+    display: grid;
     text-decoration: none;
     color: rgb(62, 45, 156);
+    height: 40px;
+    width: 150px;
+    align-items: center;
 }
 .menu-btn:hover {
     transform: scale(1.05);
@@ -396,15 +400,15 @@ nav ul li a {
 input[type="submit"].login-btn,
 input[type="submit"].signup-btn {
     margin-top: 15px;
-    background-color: #8884ff;
-    color: whitesmoke;
+    background-color: #7b77fb;
+    color: #fff;
     height: 34px;
     transition: all 0.3s ease-in-out;
 }
 input[type="submit"].login-btn:hover,
 input[type="submit"].signup-btn:hover {
     transform: scale(1.02);
-    background-color: rgba(136, 132, 255, 0.8);
+    background-color: #7b77fbe4;
 }
 .danger {
     color: rgb(243, 78, 78);

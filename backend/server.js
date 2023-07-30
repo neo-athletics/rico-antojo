@@ -1,5 +1,6 @@
+import * as dotenv from "dotenv";
+dotenv.config();
 import express from "express";
-import dotenv from "dotenv";
 import session from "express-session";
 import passport from "passport";
 import mongoose from "mongoose";
@@ -18,11 +19,11 @@ const app = express();
 app.use(helmet());
 app.use(cookieParser("cookie"));
 
-dotenv.config();
-
 const endpointSecret = process.env.END_POINT_SECRET;
 
-const stripeAPI = Stripe(process.env.STRIPE_API_KEY);
+const stripeAPI = Stripe(
+    "sk_test_51JiY3SHQGEsFjDv8BU9d9xnIXxJEOBtXxWDOY1toIWssjr3YgCjemEVlu5eO2H3b5XN9kX1WvbfUPNbPs8uSNUsL00TiqwiBa5"
+);
 
 const PORT = process.env.PORT || 5000;
 
@@ -46,17 +47,15 @@ app.use(express.urlencoded({ extended: false }));
 
 mongoose
     .connect(
-        "mongodb+srv://neo-ranger:E6kO3QvtF2Evdg3g@neoxathletics.amxgl.mongodb.net/e-commerce?retryWrites=true&w=majority",
+        "mongodb+srv://neo-ranger:sGR3VgmPrKusH3J3@neoxathletics.amxgl.mongodb.net/e-commerce?retryWrites=true&w=majority",
         {
-            useFindAndModify: false,
-            useCreateIndex: true,
             useNewUrlParser: true,
             useUnifiedTopology: true,
         }
     )
     .then((result) => {
         app.listen(PORT);
-        console.log("listening on port " + PORT);
+        console.log("listening on port " + PORT, "listen to this guy");
     })
     .catch((err) => console.log(err, "could not connect to database!!!"));
 
@@ -72,8 +71,10 @@ app.use(
             maxAge: 1000 * 60 * 60 * 24,
         },
         store: MongoStore.create({
-            mongoUrl: process.env.URI,
             dbName: "e-commerce",
+            stringify: false,
+            mongoUrl:
+                "mongodb+srv://neo-ranger:sGR3VgmPrKusH3J3@neoxathletics.amxgl.mongodb.net/e-commerce?retryWrites=true&w=majority",
         }),
     })
 );
@@ -166,6 +167,7 @@ app.post(
             if (info !== undefined) {
                 res.status(403).send({ ...info });
             } else {
+                console.log(user, "-----");
                 req.logIn(user, (err) => {
                     if (err) throw err;
                     res.send({ message: "successfully signed up" });

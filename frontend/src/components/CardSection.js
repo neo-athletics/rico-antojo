@@ -14,7 +14,12 @@ const CardSection = () => {
     const stripe = useStripe();
     const elements = useElements();
     const dispatch = useDispatch();
-
+    let env;
+    if (process.env.NODE_ENV === "PROD") {
+        env = process.env.REACT_APP_CLIENT_URL_PROD;
+    } else {
+        env = process.env.REACT_APP_CLIENT_URL_DEV;
+    }
     const [message, setMessage] = useState(null);
 
     const [isLoading, setIsLoading] = useState(false);
@@ -33,8 +38,7 @@ const CardSection = () => {
         const { error } = await stripe.confirmPayment({
             elements,
             confirmParams: {
-                return_url:
-                    "https://rico-antojo.netlify.app/successful_payment",
+                return_url: `${env}/successful_payment`,
             },
         });
 

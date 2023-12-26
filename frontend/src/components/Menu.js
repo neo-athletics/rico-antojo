@@ -9,13 +9,16 @@ import Wave from "./Wave";
 const Menu = ({ categories, setShowModal }) => {
     const [items, setItems] = useState([]);
     const [message, setMessage] = useState(null);
-
+    let env;
+    if (process.env.NODE_ENV === "PROD") {
+        env = process.env.REACT_APP_SERVER_END_POINT_PROD;
+    } else {
+        env = process.env.REACT_APP_SERVER_END_POINT_DEV;
+    }
     useEffect(() => {
         const fetchItems = async () => {
             try {
-                const { data } = await axios.get(
-                    `${process.env.REACT_APP_SERVER_END_POINT}/api/products`
-                );
+                const { data } = await axios.get(`${env}/api/products`);
                 setItems(data);
                 console.log(data);
             } catch (e) {

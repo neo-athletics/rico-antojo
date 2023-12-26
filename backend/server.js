@@ -1,5 +1,9 @@
-import * as dotenv from "dotenv";
-dotenv.config();
+import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+dotenv.config({ path: path.resolve(__dirname, "../.env") });
 import express from "express";
 import session from "express-session";
 import passport from "passport";
@@ -21,9 +25,7 @@ app.use(cookieParser("cookie"));
 
 const endpointSecret = process.env.END_POINT_SECRET;
 
-const stripeAPI = Stripe(
-    "sk_test_51JiY3SHQGEsFjDv8BU9d9xnIXxJEOBtXxWDOY1toIWssjr3YgCjemEVlu5eO2H3b5XN9kX1WvbfUPNbPs8uSNUsL00TiqwiBa5"
-);
+const stripeAPI = Stripe(process.env.STRIPE_API_KEY);
 
 const PORT = process.env.PORT || 5000;
 
@@ -46,13 +48,10 @@ app.use((req, res, next) => {
 app.use(express.urlencoded({ extended: false }));
 
 mongoose
-    .connect(
-        "mongodb+srv://neo-ranger:sGR3VgmPrKusH3J3@neoxathletics.amxgl.mongodb.net/e-commerce?retryWrites=true&w=majority",
-        {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        }
-    )
+    .connect(process.env.URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
     .then((result) => {
         app.listen(PORT);
         console.log("listening on port " + PORT, "listen to this guy");
@@ -73,8 +72,7 @@ app.use(
         store: MongoStore.create({
             dbName: "e-commerce",
             stringify: false,
-            mongoUrl:
-                "mongodb+srv://neo-ranger:sGR3VgmPrKusH3J3@neoxathletics.amxgl.mongodb.net/e-commerce?retryWrites=true&w=majority",
+            mongoUrl: process.env.URI,
         }),
     })
 );

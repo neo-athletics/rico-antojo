@@ -6,9 +6,9 @@
     "type": "module",
     "scripts": {
         "start": "node ./backend/server.js",
-        "server": "nodemon backend/server.js",
+        "server": "nodemon ./backend/server.js",
         "client": "npm start --prefix frontend",
-        "dev": "concurrently \"npm run server\" \"npm run client\""
+        "dev": "concurrently \"npm run start\" \"npm run client\""
     },
     "repository": {
         "type": "git",
@@ -27,6 +27,7 @@
         "connect-mongo": "^5.0.0",
         "cookie-parser": "^1.4.6",
         "cors": "^2.8.5",
+        "dotenv": "^16.3.1",
         "express": "^4.17.1",
         "express-session": "^1.17.1",
         "express-validator": "^6.11.1",

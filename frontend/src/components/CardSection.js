@@ -15,10 +15,10 @@ const CardSection = () => {
     const elements = useElements();
     const dispatch = useDispatch();
     let env;
-    if (process.env.NODE_ENV === "development") {
-        env = process.env.REACT_APP_CLIENT_URL_DEV;
-    } else {
+    if (process.env.NODE_ENV === "prod") {
         env = process.env.REACT_APP_CLIENT_URL_PROD;
+    } else {
+        env = process.env.REACT_APP_CLIENT_URL_DEV;
     }
     const [message, setMessage] = useState(null);
 

@@ -9,12 +9,12 @@ import Wave from "./Wave";
 const Menu = ({ categories, setShowModal }) => {
     const [items, setItems] = useState([]);
     const [message, setMessage] = useState(null);
-    let env;
-    if (process.env.NODE_ENV == "production") {
-        env = process.env.REACT_APP_SERVER_END_POINT_PROD;
-    } else {
-        env = process.env.REACT_APP_SERVER_END_POINT_DEV;
-    }
+    let env = "https://taupe-quail-belt.cyclic.app";
+    // if (process.env.NODE_ENV == "production") {
+    //     env = process.env.REACT_APP_SERVER_END_POINT_PROD;
+    // } else {
+    //     env = process.env.REACT_APP_SERVER_END_POINT_DEV;
+    // }
     useEffect(() => {
         const fetchItems = async () => {
             try {

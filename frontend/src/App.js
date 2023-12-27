@@ -27,12 +27,12 @@ function App() {
     const cart = useSelector((state) => state.cart);
     const [clientSecret, setClientSecret] = useState("");
     console.log(process.env.NODE_ENV, "ENV");
-    let env;
-    if (process.env.NODE_ENV == "production") {
-        env = process.env.REACT_APP_SERVER_END_POINT_PROD;
-    } else {
-        env = process.env.REACT_APP_SERVER_END_POINT_DEV;
-    }
+    let env = "https://taupe-quail-belt.cyclic.app";
+    // if (process.env.NODE_ENV == "production") {
+    //     env = process.env.REACT_APP_SERVER_END_POINT_PROD;
+    // } else {
+    //     env = process.env.REACT_APP_SERVER_END_POINT_DEV;
+    // }
     const fetchData = async () => {
         try {
             const res = await axios.post(

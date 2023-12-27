@@ -10,10 +10,10 @@ const Menu = ({ categories, setShowModal }) => {
     const [items, setItems] = useState([]);
     const [message, setMessage] = useState(null);
     let env;
-    if (process.env.NODE_ENV === "PROD") {
-        env = process.env.REACT_APP_SERVER_END_POINT_PROD;
-    } else {
+    if (process.env.NODE_ENV === "development") {
         env = process.env.REACT_APP_SERVER_END_POINT_DEV;
+    } else {
+        env = process.env.REACT_APP_SERVER_END_POINT_PROD;
     }
     useEffect(() => {
         const fetchItems = async () => {

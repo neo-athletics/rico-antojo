@@ -9,7 +9,7 @@ import Wave from "./Wave";
 const Menu = ({ categories, setShowModal }) => {
     const [items, setItems] = useState([]);
     const [message, setMessage] = useState(null);
-    let env = "https://taupe-quail-belt.cyclic.app";
+    let env = "https://rico-antojo-api.onrender.com";
     // if (process.env.NODE_ENV == "production") {
     //     env = process.env.REACT_APP_SERVER_END_POINT_PROD;
     // } else {

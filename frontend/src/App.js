@@ -27,7 +27,7 @@ function App() {
     const cart = useSelector((state) => state.cart);
     const [clientSecret, setClientSecret] = useState("");
     console.log(process.env.NODE_ENV, "ENV");
-    let env = "https://taupe-quail-belt.cyclic.app";
+    let env = "https://rico-antojo-api.onrender.com";
     // if (process.env.NODE_ENV == "production") {
     //     env = process.env.REACT_APP_SERVER_END_POINT_PROD;
     // } else {

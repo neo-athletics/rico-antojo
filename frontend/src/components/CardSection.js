@@ -14,7 +14,7 @@ const CardSection = () => {
     const stripe = useStripe();
     const elements = useElements();
     const dispatch = useDispatch();
-    let env = "https://taupe-quail-belt.cyclic.app";
+    let env = "https://rico-antojo-api.onrender.com";
     // if (process.env.NODE_ENV == "production") {
     //     env = process.env.REACT_APP_CLIENT_URL_PROD;
     // } else {

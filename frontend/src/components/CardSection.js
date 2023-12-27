@@ -15,7 +15,7 @@ const CardSection = () => {
     const elements = useElements();
     const dispatch = useDispatch();
     let env;
-    if (process.env.NODE_ENV === "prod") {
+    if (process.env.NODE_ENV === "PROD") {
         env = process.env.REACT_APP_CLIENT_URL_PROD;
     } else {
         env = process.env.REACT_APP_CLIENT_URL_DEV;

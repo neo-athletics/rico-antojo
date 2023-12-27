@@ -10,7 +10,7 @@ const Menu = ({ categories, setShowModal }) => {
     const [items, setItems] = useState([]);
     const [message, setMessage] = useState(null);
     let env;
-    if (process.env.NODE_ENV === "prod") {
+    if (process.env.NODE_ENV === "PROD") {
         env = process.env.REACT_APP_SERVER_END_POINT_PROD;
     } else {
         env = process.env.REACT_APP_SERVER_END_POINT_DEV;

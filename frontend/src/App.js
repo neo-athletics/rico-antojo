@@ -29,7 +29,7 @@ function App() {
     console.log(process.env.NODE_ENV, "ENV");
     let env;
     console.log(process.env.NODE_ENV, "----");
-    if (process.env.NODE_ENV === "prod") {
+    if (process.env.NODE_ENV === "PROD") {
         env = process.env.REACT_APP_SERVER_END_POINT_PROD;
     } else {
         env = process.env.REACT_APP_SERVER_END_POINT_DEV;

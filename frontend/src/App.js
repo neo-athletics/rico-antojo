@@ -16,8 +16,9 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CardSection from "./components/CardSection";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import SuccessfulPayment from "./components/SuccessfulPayment";
+import { globalEnvironment } from "./actions/actions";
 
 const stripePromise = loadStripe(process.env.REACT_APP_PUBLISHABLE_KEY);
 
@@ -26,8 +27,12 @@ function App() {
     const [show, setShow] = useState(false);
     const cart = useSelector((state) => state.cart);
     const [clientSecret, setClientSecret] = useState("");
-    console.log(process.env.NODE_ENV, "ENV");
-    let env = "https://rico-antojo-api.onrender.com";
+    const dispatch = useDispatch();
+    const env = useSelector((state) => state.environment);
+    dispatch(globalEnvironment(process.env.NODE_ENV));
+    console.log(process.env.NODE_ENV, "ENV", env);
+    // let env = "https://rico-antojo-api.onrender.com";
+    // let env;
     // if (process.env.NODE_ENV == "production") {
     //     env = process.env.REACT_APP_SERVER_END_POINT_PROD;
     // } else {

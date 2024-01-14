@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import { store } from "../index";
 export const logIn = (userInfo, setShow, setUser) => async (dispatch) => {
     //dispatch login request
 
@@ -9,7 +9,7 @@ export const logIn = (userInfo, setShow, setUser) => async (dispatch) => {
         //dispatch logIn success
 
         const res = await axios.post(
-            `${process.env.REACT_APP_SERVER_END_POINT}/login`,
+            `${store.getState().environment}/login`,
             userInfo,
             {
                 withCredentials: true,

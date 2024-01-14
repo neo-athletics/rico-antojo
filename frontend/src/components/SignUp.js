@@ -12,6 +12,7 @@ import WaveLayout from "./WaveLayout";
 const SignUp = ({ setShow }) => {
     const { register, handleSubmit } = useForm();
     const userState = useSelector((state) => state.userStatus);
+    const env = useSelector((state) => state.environment);
     const [errors, setErrors] = useState([]);
     const dispatch = useDispatch();
     const history = useHistory();
@@ -22,10 +23,7 @@ const SignUp = ({ setShow }) => {
 
     const userSignUp = async (data) => {
         try {
-            const res = await axios.post(
-                `${process.env.REACT_APP_SERVER_END_POINT}/signup`,
-                data
-            );
+            const res = await axios.post(`${env}/signup`, data);
 
             const { message } = await res.data;
 

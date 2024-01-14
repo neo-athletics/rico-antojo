@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Item from "./Item";
 import { Container, Row, Col } from "react-bootstrap";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { selectItem } from "../actions/actions";
 import axios from "axios";
 import SkeletonCard from "./SkeletonCard";
@@ -9,7 +9,9 @@ import Wave from "./Wave";
 const Menu = ({ categories, setShowModal }) => {
     const [items, setItems] = useState([]);
     const [message, setMessage] = useState(null);
-    let env = "https://rico-antojo-api.onrender.com";
+    const env = useSelector((state) => state.environment);
+    // let env = "https://rico-antojo-api.onrender.com";
+    // let env;
     // if (process.env.NODE_ENV == "production") {
     //     env = process.env.REACT_APP_SERVER_END_POINT_PROD;
     // } else {

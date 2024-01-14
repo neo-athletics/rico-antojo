@@ -1,9 +1,17 @@
+export const globalEnvironment = (env) => {
+    return {
+        type: "Environment",
+        payload: env,
+    };
+};
+
 export const selectItem = (item) => {
     return {
         type: "ITEM_SELECTED",
         payload: item,
     };
 };
+
 export const purchaseItem = (item, data) => {
     const { itemName } = item;
     let description;

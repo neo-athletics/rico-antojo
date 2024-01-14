@@ -11,7 +11,7 @@ import { loadState, saveState } from "./localStorage";
 
 const persistentData = loadState();
 
-const store = createStore(
+export const store = createStore(
     reducers,
     persistentData,
     compose(applyMiddleware(thunkMiddleware))

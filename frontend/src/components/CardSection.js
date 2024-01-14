@@ -14,12 +14,12 @@ const CardSection = () => {
     const stripe = useStripe();
     const elements = useElements();
     const dispatch = useDispatch();
-    let env = "https://rico-antojo.onrender.com";
-    // if (process.env.NODE_ENV == "production") {
-    //     env = process.env.REACT_APP_CLIENT_URL_PROD;
-    // } else {
-    //     env = process.env.REACT_APP_CLIENT_URL_DEV;
-    // }
+    let env;
+    if (process.env.NODE_ENV == "production") {
+        env = process.env.REACT_APP_CLIENT_URL_PROD;
+    } else {
+        env = process.env.REACT_APP_CLIENT_URL_DEV;
+    }
     const [message, setMessage] = useState(null);
 
     const [isLoading, setIsLoading] = useState(false);

@@ -1,6 +1,14 @@
 import { combineReducers } from "redux";
 import menuItems from "../menuItems";
 import userStatus from "./userStatusReducer";
+
+const envReducer = (env = "", action) => {
+    if (action.payload == "production") {
+        return process.env.REACT_APP_SERVER_END_POINT_PROD;
+    }
+    return process.env.REACT_APP_SERVER_END_POINT_DEV;
+};
+
 const categoryReducer = () => {
     const categories = menuItems.map((item) => {
         return item.category;
@@ -49,4 +57,5 @@ export default combineReducers({
     selectedItem: selectedItemReducer,
     cart: cartReducer,
     userStatus: userStatus,
+    environment: envReducer,
 });

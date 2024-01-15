@@ -28,8 +28,8 @@ function App() {
     const cart = useSelector((state) => state.cart);
     const [clientSecret, setClientSecret] = useState("");
     const dispatch = useDispatch();
-    const env = useSelector((state) => state.environment);
     dispatch(globalEnvironment(process.env.NODE_ENV));
+    const env = useSelector((state) => state.environment);
     console.log(process.env.NODE_ENV, "ENV", env);
     // let env = "https://rico-antojo-api.onrender.com";
     // let env;

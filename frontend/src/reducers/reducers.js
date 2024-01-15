@@ -3,10 +3,10 @@ import menuItems from "../menuItems";
 import userStatus from "./userStatusReducer";
 
 const envReducer = (env = "", action) => {
-    if (action.payload == "production") {
-        return process.env.REACT_APP_SERVER_END_POINT_PROD;
+    if (action.payload == "development") {
+        return process.env.REACT_APP_SERVER_END_POINT_DEV;
     }
-    return process.env.REACT_APP_SERVER_END_POINT_DEV;
+    return process.env.REACT_APP_SERVER_END_POINT_PROD;
 };
 
 const categoryReducer = () => {

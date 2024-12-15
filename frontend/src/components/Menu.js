@@ -18,18 +18,31 @@ const Menu = ({ categories, setShowModal }) => {
     //     env = process.env.REACT_APP_SERVER_END_POINT_DEV;
     // }
     useEffect(() => {
-        const fetchItems = async () => {
-            try {
-                const { data } = await axios.get(`${env}/api/products`);
-                setItems(data);
-                console.log(data);
-            } catch (e) {
-                console.log({ ...e });
-                setMessage("Unable to retrieve items at this time.");
-            }
-        };
-        fetchItems();
-    }, []);
+        if (!items.length) {
+            const fetchItems = async () => {
+                try {
+                    const { data } = await axios.get(`${env}/api/products`);
+                    setItems(data);
+                    console.log(data);
+                } catch (e) {
+                    console.log({ ...e });
+                    setMessage("Unable to retrieve items at this time.");
+                }
+            };
+            fetchItems();
+        }
+    }, [items.length]);
+
+    const renderCategoryItems = (category) => {
+        const filteredItems = items.filter(
+            (item) => item.category === category
+        );
+        return filteredItems.map((item) => (
+            <Col sm={12} md={6} lg={3} className="mb-4" key={item.id}>
+                <Item setShowModal={setShowModal} item={item} />
+            </Col>
+        ));
+    };
 
     return (
         <>
@@ -43,6 +56,11 @@ const Menu = ({ categories, setShowModal }) => {
                                 <h2 className={"mb-3"}>{category}</h2>
                                 <Row className={"mb-5"}>
                                     {items.length === 0 ? (
+                                        <SkeletonCard />
+                                    ) : (
+                                        renderCategoryItems(category)
+                                    )}
+                                    {/* {items.length === 0 ? (
                                         <SkeletonCard />
                                     ) : (
                                         items
@@ -67,7 +85,7 @@ const Menu = ({ categories, setShowModal }) => {
                                                     </Col>
                                                 );
                                             })
-                                    )}
+                                    )} */}
                                 </Row>
                             </>
                         );

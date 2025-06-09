@@ -10,13 +10,7 @@ const Menu = ({ categories, setShowModal }) => {
     const [items, setItems] = useState([]);
     const [message, setMessage] = useState(null);
     const env = useSelector((state) => state.environment);
-    // let env = "https://rico-antojo-api.onrender.com";
-    // let env;
-    // if (process.env.NODE_ENV == "production") {
-    //     env = process.env.REACT_APP_SERVER_END_POINT_PROD;
-    // } else {
-    //     env = process.env.REACT_APP_SERVER_END_POINT_DEV;
-    // }
+
     useEffect(() => {
         if (!items.length) {
             const fetchItems = async () => {

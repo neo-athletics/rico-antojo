@@ -2,11 +2,24 @@ import { combineReducers } from "redux";
 import menuItems from "../menuItems";
 import userStatus from "./userStatusReducer";
 
-const envReducer = (env = "", action) => {
-    if (action.payload == "development") {
-        return process.env.REACT_APP_SERVER_END_POINT_DEV;
+const initialEnv =
+    process.env.NODE_ENV === "production"
+        ? process.env.REACT_APP_SERVER_END_POINT_PROD
+        : process.env.REACT_APP_SERVER_END_POINT_DEV;
+
+const envReducer = (env = initialEnv, action) => {
+    switch (action.type) {
+        case "SET_ENVIRONMENT":
+            if (action.payload === "development") {
+                return process.env.REACT_APP_SERVER_END_POINT_DEV;
+            }
+            if (action.payload === "production") {
+                return process.env.REACT_APP_SERVER_END_POINT_PROD;
+            }
+            return env;
+        default:
+            return env;
     }
-    return process.env.REACT_APP_SERVER_END_POINT_PROD;
 };
 
 const categoryReducer = () => {

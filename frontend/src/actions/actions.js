@@ -1,9 +1,7 @@
-export const globalEnvironment = (env) => {
-    return {
-        type: "Environment",
-        payload: env,
-    };
-};
+export const globalEnvironment = (env) => ({
+    type: "SET_ENVIRONMENT",
+    payload: env,
+});
 
 export const selectItem = (item) => {
     return {

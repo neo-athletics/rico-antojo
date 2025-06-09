@@ -28,16 +28,10 @@ function App() {
     const cart = useSelector((state) => state.cart);
     const [clientSecret, setClientSecret] = useState("");
     const dispatch = useDispatch();
-    dispatch(globalEnvironment(process.env.NODE_ENV));
+
     const env = useSelector((state) => state.environment);
     console.log(process.env.NODE_ENV, "ENV", env);
-    // let env = "https://rico-antojo-api.onrender.com";
-    // let env;
-    // if (process.env.NODE_ENV == "production") {
-    //     env = process.env.REACT_APP_SERVER_END_POINT_PROD;
-    // } else {
-    //     env = process.env.REACT_APP_SERVER_END_POINT_DEV;
-    // }
+
     const fetchData = async () => {
         try {
             const res = await axios.post(
@@ -57,7 +51,8 @@ function App() {
         if (cart.length >= 1) {
             fetchData();
         }
-    }, [cart.length]);
+        dispatch(globalEnvironment(process.env.NODE_ENV));
+    }, [cart.length, dispatch]);
 
     const options = {
         clientSecret,

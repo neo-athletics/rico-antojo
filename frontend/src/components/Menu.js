@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Item from "./Item";
 import { Container, Row, Col } from "react-bootstrap";
-import { connect, useSelector } from "react-redux";
-import { selectItem } from "../actions/actions";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import SkeletonCard from "./SkeletonCard";
+import { selectCategories } from "../selectors/menuSelectors";
 import Wave from "./Wave";
-const Menu = ({ categories, setShowModal }) => {
+const Menu = ({ setShowModal }) => {
     const [items, setItems] = useState([]);
     const [message, setMessage] = useState(null);
     const env = useSelector((state) => state.environment);
@@ -26,7 +26,7 @@ const Menu = ({ categories, setShowModal }) => {
             fetchItems();
         }
     }, [items.length]);
-
+    const categories = selectCategories(items);
     const renderCategoryItems = (category) => {
         const filteredItems = items.filter(
             (item) => item.category === category
@@ -54,32 +54,6 @@ const Menu = ({ categories, setShowModal }) => {
                                     ) : (
                                         renderCategoryItems(category)
                                     )}
-                                    {/* {items.length === 0 ? (
-                                        <SkeletonCard />
-                                    ) : (
-                                        items
-                                            .filter(
-                                                (item) =>
-                                                    item.category === category
-                                            )
-                                            .map((item) => {
-                                                return (
-                                                    <Col
-                                                        sm={12}
-                                                        md={6}
-                                                        lg={3}
-                                                        className="mb-4"
-                                                    >
-                                                        <Item
-                                                            setShowModal={
-                                                                setShowModal
-                                                            }
-                                                            item={item}
-                                                        />
-                                                    </Col>
-                                                );
-                                            })
-                                    )} */}
                                 </Row>
                             </>
                         );
@@ -91,8 +65,4 @@ const Menu = ({ categories, setShowModal }) => {
     );
 };
 
-const mapStateToProps = (state) => {
-    return { categories: state.categories, items: state.items };
-};
-
-export default connect(mapStateToProps, { selectItem })(Menu);
+export default Menu;

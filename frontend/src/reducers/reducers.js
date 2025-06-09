@@ -1,5 +1,4 @@
 import { combineReducers } from "redux";
-import menuItems from "../menuItems";
 import userStatus from "./userStatusReducer";
 
 const initialEnv =
@@ -20,17 +19,6 @@ const envReducer = (env = initialEnv, action) => {
         default:
             return env;
     }
-};
-
-const categoryReducer = () => {
-    const categories = menuItems.map((item) => {
-        return item.category;
-    });
-    return [...new Set(categories)];
-};
-
-const itemsReducers = () => {
-    return menuItems;
 };
 
 const selectedItemReducer = (selectedItem = {}, action) => {
@@ -65,8 +53,6 @@ const cartReducer = (cart = [], action) => {
 };
 
 export default combineReducers({
-    categories: categoryReducer,
-    items: itemsReducers,
     selectedItem: selectedItemReducer,
     cart: cartReducer,
     userStatus: userStatus,

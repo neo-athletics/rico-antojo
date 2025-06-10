@@ -31,28 +31,29 @@ function App() {
 
     const env = useSelector((state) => state.environment);
     console.log(process.env.NODE_ENV, "ENV", env);
-
-    const fetchData = async () => {
-        try {
-            const res = await axios.post(
-                `${env}/create-payment-intent`,
-                { items: [...cart] },
-                { withCredentials: true }
-            );
-            const { data } = await res;
-            const { clientSecret } = await data;
-            setClientSecret(clientSecret);
-        } catch (e) {
-            console.log(e);
-        }
-    };
+    useEffect(() => {
+        dispatch(globalEnvironment(process.env.NODE_ENV));
+    }, [dispatch]);
 
     useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await axios.post(
+                    `${env}/create-payment-intent`,
+                    { items: [...cart] },
+                    { withCredentials: true }
+                );
+                const { data } = await res;
+                const { clientSecret } = await data;
+                setClientSecret(clientSecret);
+            } catch (e) {
+                console.log(e);
+            }
+        };
         if (cart.length >= 1) {
             fetchData();
         }
-        dispatch(globalEnvironment(process.env.NODE_ENV));
-    }, [cart.length, dispatch]);
+    }, [cart, env]);
 
     const options = {
         clientSecret,

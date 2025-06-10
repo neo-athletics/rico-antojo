@@ -30,7 +30,6 @@ function App() {
     const dispatch = useDispatch();
 
     const env = useSelector((state) => state.environment);
-    console.log(process.env.NODE_ENV, "ENV", env);
     useEffect(() => {
         dispatch(globalEnvironment(process.env.NODE_ENV));
     }, [dispatch]);

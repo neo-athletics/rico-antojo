@@ -2,9 +2,9 @@ import { combineReducers } from "redux";
 import userStatus from "./userStatusReducer";
 
 const initialEnv =
-    process.env.NODE_ENV === "development"
-        ? process.env.REACT_APP_SERVER_END_POINT_DEV
-        : process.env.REACT_APP_SERVER_END_POINT_PROD;
+    process.env.NODE_ENV === "production"
+        ? process.env.REACT_APP_SERVER_END_POINT_PROD
+        : process.env.REACT_APP_SERVER_END_POINT_DEV;
 
 const envReducer = (env = initialEnv, action) => {
     switch (action.type) {

@@ -17,7 +17,6 @@ const Menu = ({ setShowModal }) => {
                 try {
                     const { data } = await axios.get(`${env}/api/products`);
                     setItems(data);
-                    console.log(data);
                 } catch (e) {
                     console.log({ ...e });
                     setMessage("Unable to retrieve items at this time.");
